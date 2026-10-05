@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>결제 완료 · 개인 링크 받기 | Growth Edu Lab 학습연구소</title>
+<meta name="description" content="결제 후 휴대폰 번호를 입력하면 카카오톡(문자)으로 진단 링크를 보내드려요.">
+<meta name="theme-color" content="#24382F">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Growth Edu Lab 학습연구소">
+<meta property="og:title" content="결제 완료 · 개인 링크 받기 | Growth Edu Lab 학습연구소">
+<meta property="og:description" content="결제 후 휴대폰 번호를 입력하면 카카오톡(문자)으로 진단 링크를 보내드려요.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="site-header">
+  <div class="wrap hd">
+    <a class="brand" href="index.html" aria-label="Growth Edu Lab 학습연구소 홈"><svg viewBox="0 0 42 42" aria-hidden="true"><path d="M6 31V15h10v16M16 27V9h10v18"/><path d="M10 35c11-1 18-7 25-21M27 13c1-6 7-7 9-7-1 6-4 9-9 7Z"/><path d="m29 20 6-6v7M29 14h6"/></svg><span><b>Growth Edu Lab</b><small>학습연구소</small></span></a>
+    <nav class="nav" id="nav" aria-label="주요 메뉴">
+      <a href="index.html#diagnoses">진단 안내</a>
+      <a href="index.html#process">진행 방법</a>
+      <a href="free.html">무료 체험</a>
+      <a href="index.html#faq">자주 묻는 질문</a>
+      <a class="btn btn-primary" href="free.html">무료 간이 설문</a>
+    </nav>
+    <button class="menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav"><i></i></button>
+  </div>
+</header>
+<main id="main" class="center-page">
+<div class="wrap">
+  <section class="panel" id="panel" aria-live="polite">
+
+    <div id="vIdle">
+      <div class="check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h1>결제해 주셔서 감사합니다</h1>
+      <p class="lead" style="font-size:1rem">휴대폰 번호를 입력하면 카카오톡(또는 문자)으로 진단 링크를 보내드려요.</p>
+      <div class="item-chip" id="itemChip" hidden><i aria-hidden="true"></i><span id="itemName"></span></div>
+      <form id="form" novalidate>
+        <div class="field">
+          <label class="t" for="phone">휴대폰 번호</label>
+          <input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="010-0000-0000" maxlength="13" required>
+          <p class="hint">링크를 받으실 번호예요. 하이픈(-)은 없어도 돼요.</p>
+          <p class="err" id="phoneErr" hidden></p>
+        </div>
+        <label class="agree"><input type="checkbox" id="agree"><span>링크 발송을 위한 <a href="privacy.html" target="_blank" rel="noopener">개인정보 수집·이용</a>에 동의합니다. (휴대폰 번호 · 발송 목적 · <span data-retention>90</span>일 보관 후 파기)</span></label>
+        <p class="err" id="agreeErr" hidden>동의해야 링크를 보내드릴 수 있어요.</p>
+        <button class="btn btn-primary btn-block" type="submit" id="submitBtn">개인 링크 받기</button>
+        <div class="notice warn" id="formErr" role="alert" hidden></div>
+      </form>
+      <ul class="steps-mini">
+        <li>링크는 발송 후 <span data-hours>24</span>시간 동안 열려요.</li>
+        <li>카카오톡 알림이 오지 않으면 문자로 도착할 수 있어요.</li>
+      </ul>
+    </div>
+
+    <div id="vBad" hidden>
+      <div class="check-mark warn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 7v6m0 4h.01"/></svg></div>
+      <h1>결제하신 진단을 확인하지 못했어요</h1>
+      <p class="lead" style="font-size:1rem">결제 완료 후 이동한 주소가 올바르지 않을 수 있어요. 카카오톡 채널로 결제하신 진단 이름과 함께 문의해 주시면 바로 도와드릴게요.</p>
+      <p style="margin-top:22px"><a class="btn btn-kakao btn-block" href="#" data-kakao>카카오톡 채널로 문의하기</a></p>
+      <p class="sub-links"><a class="link" href="index.html">홈으로</a></p>
+    </div>
+
+    <div id="vDone" hidden>
+      <div class="check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></div>
+      <h1 id="doneTitle">링크를 보냈어요</h1>
+      <p class="lead" style="font-size:1rem" id="doneText"></p>
+      <div class="notice info" id="doneNote"></div>
+      <div id="resendBox" style="margin-top:22px">
+        <button class="btn btn-line btn-block" type="button" id="resendBtn" disabled>링크를 다시 받기</button>
+        <p class="fine" style="margin-top:8px;text-align:center" id="resendHint"></p>
+      </div>
+      <p style="margin-top:18px"><a class="btn btn-kakao btn-block" href="#" data-kakao>카카오톡 채널로 문의하기</a></p>
+      <p class="sub-links"><a class="link" href="index.html">홈으로</a></p>
+    </div>
+
+  </section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <a class="brand" href="index.html"><svg viewBox="0 0 42 42" aria-hidden="true"><path d="M6 31V15h10v16M16 27V9h10v18"/><path d="M10 35c11-1 18-7 25-21M27 13c1-6 7-7 9-7-1 6-4 9-9 7Z"/><path d="m29 20 6-6v7M29 14h6"/></svg><span><b>Growth Edu Lab</b><small>학습연구소</small></span></a>
+        <p style="margin-top:14px">부모의 관찰이 아이의 성장으로.</p>
+        <div class="ft-links" style="margin-top:14px">
+          <a href="privacy.html">개인정보처리방침</a>
+          <a href="terms.html">이용약관</a>
+          <a href="#" data-kakao>카카오톡 채널 문의</a>
+        </div>
+      </div>
+      <div class="biz" aria-label="사업자 정보">
+        <span data-biz="name"></span><span data-biz="owner"></span><br>
+        <span data-biz="regNo"></span><span data-biz="mailOrderNo"></span><br>
+        <span data-biz="address"></span><br>
+        <span data-biz="phone"></span><span data-biz="email"></span>
+      </div>
+    </div>
+    <p class="disc" style="margin-top:28px">본 리포트는 부모님의 관찰과 응답을 바탕으로 한 참고용 결과이며, 의학적·심리학적 진단을 대신하지 않습니다. 아이의 연령과 발달 속도에 따라 점수의 의미는 달라질 수 있어요. 보다 정밀한 해석은 컨설턴트와의 1:1 상담을 권해드려요.</p>
+    <p class="disc" style="border-top:none;padding-top:8px">© <span id="yr">2026</span> Growth Edu Lab 학습연구소. All rights reserved.</p>
+  </div>
+</footer>
+<script src="config.js"></script>
+<script src="catalog.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/pay-complete.js"></script>
+</body>
+</html>

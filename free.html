@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>무료 간이 설문 | Growth Edu Lab 학습연구소</title>
+<meta name="description" content="5개 영역 15문항, 약 3분. 지금 가장 먼저 살펴볼 영역을 알려드리는 무료 간이 설문. 답변은 저장되지 않아요.">
+<meta name="theme-color" content="#24382F">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/survey.css">
+<style>
+  .nav a.home{ color:var(--paper); font-size:.85rem; opacity:.85; text-decoration:none; padding:6px 0; }
+  .nav a.home:hover{ opacity:1; text-decoration:underline; }
+  .area-self{ display:inline-block; font-size:.74rem; font-weight:700; background:var(--mustard-soft); color:#6b4e12; padding:2px 10px; border-radius:999px; margin-left:8px; vertical-align:2px; }
+  .reco{ border:1.5px solid var(--chalkboard); border-radius:14px; padding:20px 20px 18px; background:#fff; }
+  .reco h4{ font-family:'Gowun Batang',serif; font-size:1.1rem; margin-bottom:4px; }
+  .reco p{ font-size:.9rem; opacity:.8; margin-bottom:14px; }
+  .reco .row{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  a.btn-primary, a.btn-outline{ text-decoration:none; display:inline-flex; align-items:center; justify-content:center; }
+  .pl{ font-size:.82rem; opacity:.7; margin:2px 0 0; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo">Growth Edu Lab<span>학습연구소</span></div>
+    <a class="home" href="index.html">홈으로</a>
+  </div>
+</nav>
+<main>
+  <section id="intro" aria-label="무료 간이 설문 안내">
+    <div class="intro-head"><span class="tag">무료 · 가입 없이</span><h1>3분 무료 간이 설문</h1>
+    <p>학습, 기질, 사회성, 정서, 그리고 부모님의 양육 태도. 5개 영역에서 3문항씩 답하면 지금 가장 먼저 살펴볼 영역을 알려드려요.</p>
+    <div class="chips"><span class="chip">15문항</span><span class="chip">약 3분</span><span class="chip light">5점 척도</span></div></div>
+    <div class="howto"><h2>이렇게 답해 주세요</h2>
+      <p>최근 한두 달 동안의 평소 모습을 떠올려, 가장 가까운 숫자를 골라 주세요. 정답은 없어요.</p>
+      <div class="legend" aria-hidden="true"><div><b>1</b>전혀 아니다</div><div><b>2</b>아니다</div><div><b>3</b>보통이다</div><div><b>4</b>그렇다</div><div><b>5</b>매우 그렇다</div></div>
+      <p class="notice">답변은 이 화면에서만 계산되고, 어디에도 저장하거나 전송하지 않아요.</p>
+    </div>
+    <div class="center"><button type="button" class="btn-primary" id="startBtn">시작하기</button></div>
+  </section>
+  <section id="quiz" aria-label="설문 문항" hidden></section>
+  <section id="result" class="result-wrap" aria-label="결과" hidden></section>
+</main>
+<div id="toastBox" aria-live="polite"></div>
+<script>window.FREE={"id":"free","scale":["전혀 아니다","아니다","보통이다","그렇다","매우 그렇다"],"thresholds":{"high":80,"mid":60},"levelLabels":{"high":"잘 자라고 있어요","mid":"자라는 중이에요","low":"함께 키워가요"},"areas":[{"key":"learning","name":"학습 · 회복탄력성","survey":"learning","self":false,"items":[{"code":"FT2-2","label":"과제 포기 지연","text":"결과가 즉각 나오지 않더라도 바로 \"안 할래요\"라며 던져버리지 않는다."},{"code":"RC3-1","label":"자발적 재시도","text":"실패한 후 누군가 시키지 않아도 \"다시 해볼게요\"라며 스스로 재도전한다."},{"code":"PA4-2","label":"대안 전략 모색","text":"한 가지 방법이 통하지 않으면 다른 방법이나 순서를 시도하는 유연성을 보인다."}]},{"key":"temperament","name":"기질 · 성격","survey":"temperament","self":false,"items":[{"code":"PS2-1","label":"오류 수정 노력","text":"하던 일이 잘 안되어도 화를 내기보다 다시 시도해 본다."},{"code":"SD2-2","label":"스스로 목표 설정","text":"성인이 시키지 않아도 자신이 하고 싶은 목표를 정하고 실천한다."},{"code":"CO1-1","label":"다름에 대한 인정","text":"성향이나 행동이 다른 또래를 배척하지 않고 있는 그대로 받아들인다."}]},{"key":"social","name":"사회성 · 관계","survey":"social","self":false,"items":[{"code":"ER1-6","label":"감정 표현의 유연성","text":"억울하거나 슬픈 상황에서 무조건적인 떼쓰기 대신 말로 상황을 설명한다."},{"code":"EA3-2","label":"공감적 반응 및 위로","text":"슬퍼하거나 울고 있는 친구에게 다가가 안아주거나 위로하는 말을 건넨다."},{"code":"CR4-2","label":"타협안 제시","text":"갈등 상황에서 \"그럼 이번엔 네가 하고 다음엔 내가 할게\" 같은 타협안을 제시한다."}]},{"key":"emotion","name":"정서 · 마음","survey":"emotion","self":false,"items":[{"code":"SC1-5","label":"유능감 및 자신감","text":"새로운 활동을 시작할 때 위축되지 않고 \"나도 할 수 있어\"라는 태도를 보인다."},{"code":"EM4-1","label":"밝은 기본 표정","text":"평소 얼굴 표정이 밝고 웃음이 많으며 정서적으로 활력이 있어 보인다."},{"code":"EM4-2","label":"감정 언어 사용","text":"\"속상해요\", \"기뻐요\", \"억울해요\" 등 자신의 감정을 구체적인 단어로 표현한다."}]},{"key":"parenting","name":"부모 양육태도","survey":"parenting","self":true,"items":[{"code":"WA1-1","label":"정서적 공감 및 경청","text":"아동이 이야기할 때 눈을 맞추고 아동의 감정 상태에 진심으로 공감하며 들어준다."},{"code":"DC2-1","label":"규칙 설정의 이유 설명","text":"안 되는 행동에 대해 단호하게 제지하되, 왜 안 되는지 아동의 눈높이에 맞춰 설명한다."},{"code":"DC2-3","label":"일관성 있는 훈육","text":"부모의 기분이나 컨디션에 따라 훈육의 기준이 달라지지 않고 일관된 태도를 유지한다."}]}],"lines":{"learning":{"high":"어려움 앞에서 다시 도전하고 방법을 바꿔보는 힘이 잘 보여요.","mid":"버티는 힘이 자라는 중이에요. 작은 성공 경험을 자주 만들어 주세요.","low":"막히면 쉽게 멈출 수 있어요. 학습 양식·회복탄력성 진단에서 이유를 자세히 살펴보세요."},"temperament":{"high":"끈기 있게 목표를 향해 가고 친구의 다름도 받아들이는 모습이 보여요.","mid":"끈기와 자율성, 배려가 고르게 자라는 중이에요.","low":"스스로 정하고 끝까지 해보는 경험이 더 필요해 보여요. 기질·성격 진단에서 타고난 성향부터 확인해 보세요."},"social":{"high":"감정을 조절하고 친구의 마음을 헤아리며 갈등을 말로 푸는 힘이 좋아요.","mid":"관계의 힘이 자라는 중이에요. 친구와 부딪힌 뒤 대화로 정리하는 연습이 도움이 돼요.","low":"감정 조절이나 갈등 해결이 어려울 수 있어요. 사회성·관계 조절 진단에서 어느 부분이 힘든지 살펴보세요."},"emotion":{"high":"자신감 있고 밝으며 감정을 말로 표현하는 모습이 보여요.","mid":"마음 표현이 자라는 중이에요. 감정 단어를 자주 들려주세요.","low":"자신감이나 감정 표현에 도움이 필요해 보여요. 정서·욕구 진단에서 마음속을 더 살펴보세요."},"parenting":{"high":"공감과 일관된 기준이 함께 있는 양육이에요. 지금의 균형을 이어가세요.","mid":"따뜻함과 일관성이 자리 잡는 중이에요. 바쁜 날에도 같은 기준을 지키는 것이 과제예요.","low":"공감이나 일관성이 흔들릴 때가 있어요. 부모 양육태도 진단에서 내 방식을 자세히 점검해 보세요."}},"surveys":{"main":{"title":"아이 발달유형 · 관심도 진단","tagline":"신체·정서·사회성·인지·언어·자기조절, 그리고 관심 분야까지 한 번에 살펴봐요"},"learning":{"title":"학습 양식 · 회복탄력성 진단","tagline":"어떤 방식으로 가장 잘 배우는지, 어려움 앞에서 어떻게 다시 일어서는지 살펴봐요"},"temperament":{"title":"기질 · 성격 진단","tagline":"타고난 기질 4가지와 자라면서 만들어지는 성격 3가지를 함께 살펴봐요"},"parenting":{"title":"부모 양육태도 진단","tagline":"아이를 대하는 부모님의 평소 태도를 따뜻하게 돌아봐요"},"social":{"title":"사회성 · 관계 조절 진단","tagline":"감정 조절, 친구 관계, 공감, 갈등 해결을 한 번에 살펴봐요"},"emotion":{"title":"정서 · 욕구 진단","tagline":"자아상, 가정에 대한 마음, 스트레스 신호, 평소 기분을 따뜻하게 살펴봐요"}},"disclaimer":"본 리포트는 부모님의 관찰과 응답을 바탕으로 한 참고용 결과이며, 의학적·심리학적 진단을 대신하지 않습니다. 아이의 연령과 발달 속도에 따라 점수의 의미는 달라질 수 있어요. 보다 정밀한 해석은 컨설턴트와의 1:1 상담을 권해드려요."};</script>
+<script src="config.js"></script>
+<script src="assets/free.js"></script>
+</body>
+</html>
