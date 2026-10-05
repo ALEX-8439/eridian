@@ -1,0 +1,2002 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>에리디안 대륙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IM+Fell+English+SC&family=Nanum+Myeongjo:wght@400;700;800&display=swap">
+<style>
+/* =========================================================
+   에리디안 대륙 — 스타일
+   01 색 · 글꼴 · 기본   02 공통 부품      03 표지 문(인트로)
+   04 상단 차례          05 챕터 공통      06 표지(홈)
+   07 세계               08 지리(지도)     09 연표
+   10 삼국               11 위계           12 화폐
+   13 세력               14 검색 · 알림    15 바닥글
+   16 좁은 화면          17 움직임 줄이기
+   ========================================================= */
+
+/* ─────────── 01 색 · 글꼴 · 기본 ─────────── */
+/* 배치: 측량국이 펴낸 대륙 지리지. 위에 고정된 차례, 챕터마다 한 장의 도엽, 지도가 중심.
+   둥근 카드 대신 이중 괘선 틀과 색인식 점선 목록을 쓴다. */
+:root {
+  color-scheme: light;
+  --paper: #E9ECE3;      /* 도엽 종이 */
+  --paper-hi: #F4F6EF;   /* 돋운 면 (뭍, 틀 안) */
+  --paper-lo: #DDE2D5;   /* 가라앉은 면 */
+  --sea: #CFDCDC;        /* 지도의 바다 */
+  --ink: #1A2036;        /* 남색 먹 */
+  --ink-2: #3F465D;
+  --ink-3: #596176;
+  --rule: rgba(26, 32, 54, .26);
+  --rule-soft: rgba(26, 32, 54, .12);
+  --gold: #7D560A;       /* 금박 글씨 */
+  --gold-leaf: #C9A14A;  /* 금박 장식 */
+  --rubric: #9E2F26;     /* 주서(朱書): 현재 · 경고 */
+  --rb: #855806;         /* 루벤티스 */
+  --at: #2F4C69;         /* 알타니아 */
+  --dm: #643785;         /* 다르모르 */
+  --shade: rgba(26, 32, 54, .14);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .12 0 0 0 0 .2 1.5 0 0 0 -.62'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");   /* 종이 결 */
+  --grain-o: .2;
+
+  --f-body: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'Noto Sans CJK KR', system-ui, sans-serif;
+  --f-display: 'Nanum Myeongjo', 'AppleMyungjo', 'Noto Serif KR', 'Noto Serif CJK KR', 'Batang', serif;
+  --f-latin: 'IM Fell English SC', Georgia, 'Times New Roman', serif;
+
+  --nav-h: 56px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0E1424; --paper-hi: #161D33; --paper-lo: #0A0F1C; --sea: #090E1B;
+    --ink: #E7E9DD; --ink-2: #B8BDC9; --ink-3: #8E95AB;
+    --rule: rgba(231, 233, 221, .24); --rule-soft: rgba(231, 233, 221, .11);
+    --gold: #E2BC62; --gold-leaf: #C9A14A; --rubric: #F28776;
+    --rb: #E8BE62; --at: #94B8DC; --dm: #C9A9EF;
+    --shade: rgba(0, 0, 0, .5);
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .92 0 0 0 0 .85 1.5 0 0 0 -.62'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+    --grain-o: .12;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0E1424; --paper-hi: #161D33; --paper-lo: #0A0F1C; --sea: #090E1B;
+  --ink: #E7E9DD; --ink-2: #B8BDC9; --ink-3: #8E95AB;
+  --rule: rgba(231, 233, 221, .24); --rule-soft: rgba(231, 233, 221, .11);
+  --gold: #E2BC62; --gold-leaf: #C9A14A; --rubric: #F28776;
+  --rb: #E8BE62; --at: #94B8DC; --dm: #C9A9EF;
+  --shade: rgba(0, 0, 0, .5);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .92 0 0 0 0 .85 1.5 0 0 0 -.62'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-o: .12;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+/* 휴대폰의 노치 · 홈 표시줄만큼 위아래를 비워 둔다 (일반 브라우저에서는 0) */
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1rem/1.75 var(--f-body);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: var(--grain); opacity: var(--grain-o); }
+body.is-gated { overflow: hidden; }
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+h1, h2, h3 { text-wrap: balance; }
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+svg { display: block; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+::selection { background: var(--gold-leaf); color: #1A2036; }
+[data-n="rb"] { --nc: var(--rb); }
+[data-n="at"] { --nc: var(--at); }
+[data-n="dm"] { --nc: var(--dm); }
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ─────────── 02 공통 부품 ─────────── */
+.shell { width: min(1120px, 100%); margin-inline: auto; padding-inline: var(--gutter); }
+.shell--wide { width: min(1320px, 100%); }
+
+.eyebrow {
+  font: 400 .8125rem/1.4 var(--f-latin);
+  letter-spacing: .16em;
+  color: var(--gold);
+}
+.eyebrow b { font-weight: 400; margin-right: .5em; }
+
+/* 이중 괘선 틀 (지도의 도곽선) */
+.frame {
+  background: var(--paper-hi);
+  border: 1px solid var(--rule);
+  box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--rule);
+  margin: 5px;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 46px; padding: 0 20px;
+  border: 1px solid var(--ink);
+  font-weight: 600; font-size: .9375rem;
+  transition: background .25s, color .25s, border-color .25s, transform .25s var(--ease);
+}
+.btn .ic { width: 17px; height: 17px; transition: transform .25s var(--ease); }
+.btn:hover .ic { transform: translateX(3px); }
+.btn--solid { background: var(--ink); color: var(--paper); }
+.btn--solid:hover { background: var(--gold); border-color: var(--gold); }
+.btn--line:hover { background: var(--paper-lo); }
+.btn--sm { min-height: 38px; padding: 0 14px; font-size: .875rem; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 2px 10px; min-height: 28px;
+  border: 1px solid var(--rule);
+  font-size: .8125rem; color: var(--ink-2);
+}
+.chip--nation { color: var(--nc); border-color: color-mix(in srgb, var(--nc) 45%, transparent); font-weight: 600; transition: background .2s; }
+.chip--nation .ic { width: 15px; height: 15px; }
+a.chip--nation:hover { background: color-mix(in srgb, var(--nc) 12%, transparent); }
+.chip--mark { border-style: dashed; }
+.chip--now { color: var(--rubric); border-color: var(--rubric); font-weight: 600; }
+
+kbd {
+  display: inline-block; padding: 0 6px;
+  border: 1px solid var(--rule); border-bottom-width: 2px;
+  font: 500 .6875rem/1.7 var(--f-body); color: var(--ink-3);
+}
+
+/* 색인식 목록: 이름 ····· 구분 */
+.ledger li { display: flex; align-items: baseline; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--rule-soft); }
+.ledger li:last-child { border-bottom: 0; }
+.ledger .nm { font-weight: 500; }
+.ledger .dots { flex: 1; min-width: 12px; border-bottom: 1px dotted var(--rule); transform: translateY(-.3em); }
+.ledger .role { color: var(--ink-3); font-size: .875rem; text-align: right; }
+
+.sec-title { font: 700 1.5rem/1.3 var(--f-display); }
+.sec-head { display: grid; gap: 4px; margin-bottom: 20px; }
+.sec-head p:not(.eyebrow) { color: var(--ink-2); font-size: .9375rem; }
+.block { padding-top: clamp(40px, 6vw, 64px); }
+
+.is-flash { animation: flash 1.8s var(--ease); }
+@keyframes flash { 0%, 55% { background: color-mix(in srgb, var(--gold-leaf) 32%, transparent); } }
+
+/* ─────────── 03 표지 문 (인트로) ─────────── */
+.gate {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; place-items: center;
+  padding: max(24px, env(safe-area-inset-top, 0px)) 20px max(24px, env(safe-area-inset-bottom, 0px));
+  background:
+    radial-gradient(90% 70% at 50% 42%, transparent 30%, var(--shade) 130%),
+    repeating-linear-gradient(0deg, transparent 0 79px, var(--rule-soft) 79px 80px),
+    repeating-linear-gradient(90deg, transparent 0 79px, var(--rule-soft) 79px 80px),
+    var(--paper);
+  text-align: center;
+}
+.skip-gate .gate { display: none; }
+.gate.is-opening {
+  -webkit-mask-image: radial-gradient(circle at 50% 42%, transparent var(--iris, 0px), #000 calc(var(--iris, 0px) + 2px));
+  mask-image: radial-gradient(circle at 50% 42%, transparent var(--iris, 0px), #000 calc(var(--iris, 0px) + 2px));
+  pointer-events: none;
+}
+.gate__inner { display: grid; justify-items: center; gap: 6px; transition: opacity .45s var(--ease), transform .7s var(--ease); }
+.gate.is-opening .gate__inner { opacity: 0; transform: scale(1.08); }
+.gate__emblem { width: min(46vmin, 300px); height: auto; margin-bottom: 14px; overflow: visible; }
+.g-ring { fill: none; stroke: var(--rule); stroke-width: 1; }
+.g-ticks { fill: none; stroke: var(--ink-3); stroke-width: 10; stroke-dasharray: 1.2 8.54; transform-origin: 0 0; animation: turn 180s linear infinite; }
+.g-star polygon { fill: var(--paper-hi); stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+.g-star path { fill: var(--ink); }
+.g-core { fill: var(--paper); stroke: var(--ink); stroke-width: 1.4; }
+.g-dot { fill: var(--gold-leaf); stroke: var(--ink); stroke-width: 1; }
+@keyframes turn { to { transform: rotate(360deg); } }
+.gate__eyebrow { font: 400 .9375rem var(--f-latin); letter-spacing: .34em; padding-left: .34em; color: var(--gold); }
+.gate__title { font: 800 clamp(2.4rem, 9vw, 4.2rem)/1.1 var(--f-display); letter-spacing: -.01em; }
+.gate__line { color: var(--ink-2); font-size: .9375rem; margin-top: 4px; }
+.gate__enter { margin-top: 22px; min-width: 200px; }
+
+/* ─────────── 04 상단 차례 ─────────── */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav__in {
+  height: var(--nav-h);
+  width: min(1240px, 100%); margin-inline: auto; padding-inline: var(--gutter);
+  display: flex; align-items: center; gap: 14px;
+}
+.nav__brand { display: flex; align-items: center; gap: 9px; flex-shrink: 0; font: 800 1.0625rem var(--f-display); }
+.nav__mark { width: 24px; height: 24px; color: var(--gold); transition: transform .8s var(--ease); }
+.nav__brand:hover .nav__mark { transform: rotate(45deg); }
+.nav__links { display: flex; align-items: stretch; gap: 2px; margin-inline: auto; height: 100%; }
+.nav__links a {
+  position: relative; display: flex; align-items: center; gap: 6px;
+  padding: 0 11px; font-size: .9375rem; font-weight: 500; color: var(--ink-2);
+  transition: color .2s;
+}
+.nav__links a i { font: 400 .6875rem var(--f-latin); font-style: normal; letter-spacing: .06em; color: var(--ink-3); }
+.nav__links a:hover { color: var(--ink); }
+.nav__links a::after { content: ''; position: absolute; left: 11px; right: 11px; bottom: -1px; height: 3px; background: var(--gold); transform: scaleX(0); transition: transform .3s var(--ease); }
+.nav__links a.is-active { color: var(--ink); font-weight: 700; }
+.nav__links a.is-active i { color: var(--gold); }
+.nav__links a.is-active::after { transform: scaleX(1); }
+.nav__tools { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.tool {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 36px; padding: 0 10px;
+  border: 1px solid var(--rule); color: var(--ink-2); font-size: .8125rem;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.tool:hover { color: var(--ink); border-color: var(--ink); }
+.tool .ic { width: 16px; height: 16px; }
+.tool--icon { width: 36px; padding: 0; justify-content: center; }
+.i-sun { display: none; }
+.is-dark .i-sun { display: block; }
+.is-dark .i-moon { display: none; }
+.nav__menu { display: none; position: relative; }
+.nav__menu span { position: absolute; left: 9px; right: 9px; height: 1.5px; background: currentColor; transition: transform .3s var(--ease), top .3s var(--ease); }
+.nav__menu span:first-child { top: 13px; }
+.nav__menu span:last-child { top: 21px; }
+.nav.is-open .nav__menu span:first-child { top: 17px; transform: rotate(45deg); }
+.nav.is-open .nav__menu span:last-child { top: 17px; transform: rotate(-45deg); }
+
+/* ─────────── 05 챕터 공통 ─────────── */
+main { padding-top: var(--nav-h); min-height: 70vh; }
+main:focus { outline: none; }
+.page.is-active { animation: pageIn .5s var(--ease) both; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(10px); } }
+
+.plate-head {
+  position: relative; display: grid; gap: 6px;
+  padding-block: clamp(28px, 5vw, 52px) clamp(18px, 3vw, 26px);
+  margin-bottom: clamp(24px, 4vw, 36px);
+  border-bottom: 3px double var(--rule);
+}
+.plate-head h1 { font: 800 clamp(2rem, 5.4vw, 3.25rem)/1.15 var(--f-display); letter-spacing: -.01em; }
+.plate-head__sub { color: var(--ink-2); max-width: 40em; }
+.plate-head::after { content: attr(data-num); position: absolute; right: 0; bottom: clamp(10px, 2vw, 18px); font: 400 clamp(4.5rem, 13vw, 8.5rem)/.8 var(--f-latin); letter-spacing: .02em; color: var(--ink); opacity: .09; pointer-events: none; }
+
+
+/* ─────────── 06 표지 (홈) ─────────── */
+.hero {
+  display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  gap: clamp(24px, 5vw, 56px); align-items: center;
+  padding-block: clamp(28px, 5vw, 56px);
+}
+.hero__text { display: grid; gap: 14px; justify-items: start; }
+.hero__title { font: 800 clamp(2.6rem, 7.2vw, 4.75rem)/1.06 var(--f-display); letter-spacing: -.02em; }
+.hero__lead { color: var(--ink-2); font-size: clamp(1rem, 1.5vw, 1.125rem); max-width: 30em; }
+.hero__cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.hero__map { display: block; position: relative; }
+.hero__map svg { width: 100%; height: auto; }
+.hero__mapcap {
+  position: absolute; left: 12px; bottom: 10px;
+  padding: 2px 10px; background: var(--paper-hi); border: 1px solid var(--rule);
+  font-size: .8125rem; color: var(--ink-2);
+  transition: color .2s, border-color .2s;
+}
+.hero__map:hover .hero__mapcap { color: var(--ink); border-color: var(--ink); }
+
+.now { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: clamp(18px, 4vw, 44px); padding: clamp(20px, 3vw, 30px); }
+.now__head { display: grid; gap: 4px; align-content: start; }
+.now__year { font: 800 clamp(2.2rem, 5vw, 3.1rem)/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.now__year small { font: 400 1rem var(--f-latin); letter-spacing: .14em; color: var(--rubric); margin-right: 8px; }
+.now__sub { color: var(--ink-2); font-size: .9375rem; }
+.now__items { display: grid; gap: 0; }
+.now__items li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 14px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--rule-soft); }
+.now__items li:first-child { padding-top: 0; }
+.now__items a { display: inline-flex; align-items: center; gap: 7px; color: var(--nc); font-weight: 700; }
+.now__items a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.now__items .ic { width: 18px; height: 18px; flex-shrink: 0; }
+.now__result { margin-top: 12px; color: var(--rubric); font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.now__result::before { content: ''; width: 8px; height: 8px; background: var(--rubric); transform: rotate(45deg); flex-shrink: 0; }
+
+.plates { border-top: 1px solid var(--rule); }
+.plates li { border-bottom: 1px solid var(--rule-soft); }
+.plates a {
+  display: grid; grid-template-columns: 3.2rem minmax(0, 9rem) minmax(0, 1fr) auto; gap: 14px; align-items: baseline;
+  padding: 16px 8px; transition: background .2s, padding .3s var(--ease);
+}
+.plates a:hover { background: var(--paper-lo); padding-left: 16px; }
+.plates i { font: 400 1rem var(--f-latin); font-style: normal; letter-spacing: .08em; color: var(--gold); }
+.plates b { font: 800 1.375rem/1.3 var(--f-display); }
+.plates span { color: var(--ink-2); font-size: .9375rem; }
+.plates em { font-style: normal; font-size: .8125rem; color: var(--ink-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ─────────── 07 세계 ─────────── */
+.worldfacts > div { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr); gap: 20px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--rule-soft); }
+.worldfacts > div:first-child { padding-top: 0; }
+.worldfacts dt { font: 700 1.1875rem/1.4 var(--f-display); }
+.worldfacts dt small { display: block; font: 400 .75rem var(--f-latin); letter-spacing: .12em; color: var(--ink-3); margin-top: 2px; }
+.worldfacts dd { color: var(--ink-2); }
+.worldfacts .chip { font-size: .9375rem; min-height: 32px; padding-inline: 12px; color: var(--ink); background: var(--paper-hi); }
+
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--rule); background: var(--paper-hi); }
+.trio a { display: grid; gap: 6px; align-content: start; padding: clamp(18px, 2.6vw, 28px); border-right: 1px solid var(--rule); transition: background .25s; }
+.trio a:last-child { border-right: 0; }
+.trio a:hover { background: color-mix(in srgb, var(--nc) 9%, var(--paper-hi)); }
+.trio .ic { width: 42px; height: 42px; color: var(--nc); margin-bottom: 6px; }
+.trio small { font: 400 .75rem var(--f-latin); letter-spacing: .14em; color: var(--nc); }
+.trio b { font: 800 1.375rem/1.3 var(--f-display); }
+.trio p { color: var(--ink-2); font-size: .9375rem; }
+.trio .go { margin-top: 6px; display: inline-flex; align-items: center; gap: 6px; font-size: .875rem; font-weight: 600; color: var(--nc); }
+.trio .go .ic { width: 15px; height: 15px; margin: 0; transition: transform .25s var(--ease); }
+.trio a:hover .go .ic { transform: translateX(3px); }
+
+/* ─────────── 08 지리 (지도) ─────────── */
+.atlas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 20rem); gap: clamp(16px, 2.5vw, 28px); align-items: start; }
+.atlas__map { min-width: 0; }
+.atlas__scroll { overflow-x: auto; }
+.atlas__scroll svg { width: 100%; height: auto; }
+.atlas__map figcaption { padding: 8px 12px; border-top: 1px solid var(--rule); font-size: .8125rem; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; }
+.legend { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); }
+.legend i { width: 12px; height: 12px; background: color-mix(in srgb, var(--nc) 38%, var(--paper-hi)); border: 1px solid var(--nc); }
+
+/* 지도 그림 */
+.m-sea { fill: var(--sea); }
+.m-grid { stroke: var(--rule-soft); stroke-width: 1; fill: none; }
+.m-shelf { fill: none; stroke: var(--paper-hi); stroke-opacity: .5; stroke-linejoin: round; }
+.m-land { fill: var(--paper-hi); stroke: var(--ink); stroke-width: 1.3; stroke-linejoin: round; }
+.m-region { stroke: none; fill: var(--nc); fill-opacity: .22; }
+.m-border { fill: none; stroke: var(--ink-2); stroke-width: 1.3; stroke-dasharray: 7 5; stroke-linecap: round; }
+.m-limit { fill: none; stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 1.5 5; stroke-linecap: round; }
+.m-mt { fill: var(--paper-hi); stroke: var(--ink-2); stroke-width: 1.1; stroke-linejoin: round; }
+.m-mt-shade { fill: none; stroke: var(--ink-2); stroke-width: .8; stroke-linejoin: round; opacity: .7; }
+.m-lake { fill: var(--sea); stroke: var(--ink-2); stroke-width: 1; }
+.m-fog { fill: none; stroke: var(--ink-3); stroke-width: 1; stroke-linecap: round; stroke-dasharray: 5 4; }
+.m-tree { fill: none; stroke: var(--ink-3); stroke-width: .9; }
+.m-wave { fill: none; stroke: var(--ink-3); stroke-width: 1; stroke-linecap: round; }
+.m-field { stroke: var(--ink-3); stroke-width: .8; stroke-dasharray: 9 6; opacity: .7; }
+.m-col { fill: var(--ink-2); }
+.m-nation { font: 800 31px var(--f-display); letter-spacing: .14em; fill: var(--nc); text-anchor: middle; paint-order: stroke; stroke: var(--paper-hi); stroke-width: 5px; stroke-linejoin: round; }
+.m-nation-en { font: 400 15px var(--f-latin); letter-spacing: .3em; fill: var(--nc); text-anchor: middle; paint-order: stroke; stroke: var(--paper-hi); stroke-width: 4px; stroke-linejoin: round; }
+.m-rose { fill: none; stroke: var(--ink-2); stroke-width: 1; }
+.m-rose-fill { fill: var(--ink-2); }
+.m-rose-n { font: 400 15px var(--f-latin); fill: var(--ink-2); text-anchor: middle; }
+.m-img { opacity: 1; }
+.pin { cursor: pointer; }
+.pin:focus { outline: none; }
+.pin__hit { fill: transparent; }
+.pin__body { transition: transform .2s var(--ease); }
+.pin__dot { fill: var(--paper-hi); stroke: var(--ink); stroke-width: 1.6; transition: fill .2s, stroke-width .2s; }
+.pin__num { font: 700 15px var(--f-body); fill: var(--ink); text-anchor: middle; dominant-baseline: central; pointer-events: none; font-variant-numeric: tabular-nums; }
+.pin__label { font: 600 17px var(--f-body); fill: var(--ink); paint-order: stroke; stroke: var(--paper-hi); stroke-width: 4.5px; stroke-linejoin: round; }
+.pin:hover .pin__dot, .pin:focus-visible .pin__dot { fill: var(--paper-lo); stroke-width: 2.4; }
+.pin.is-on .pin__dot { fill: var(--gold-leaf); stroke-width: 2.4; }
+.pin.is-on .pin__num { fill: #1A2036; }
+.pin.is-on .pin__label { font-weight: 700; }
+.pin__ring { fill: none; stroke: var(--gold); stroke-width: 1.5; opacity: 0; }
+.pin.is-on .pin__ring { opacity: 1; animation: ring 2.4s var(--ease) infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes ring { from { transform: scale(.7); opacity: .9; } to { transform: scale(1.7); opacity: 0; } }
+
+.atlas__card { position: sticky; top: calc(var(--nav-h) + env(safe-area-inset-top, 0px) + 16px); display: grid; gap: 12px; padding: clamp(18px, 2.4vw, 24px); }
+.atlas__card h2 { font: 800 1.625rem/1.25 var(--f-display); }
+.atlas__card .where { color: var(--gold); font-weight: 600; font-size: .9375rem; }
+.atlas__card .desc { color: var(--ink-2); }
+.atlas__card.is-swap > * { animation: pageIn .4s var(--ease) both; }
+.stepper { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--rule-soft); font-size: .8125rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.stepper button { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 10px; border: 1px solid var(--rule); color: var(--ink-2); transition: color .2s, border-color .2s; }
+.stepper button:hover { color: var(--ink); border-color: var(--ink); }
+.stepper .ic { width: 15px; height: 15px; }
+.stepper .is-prev .ic { transform: scaleX(-1); }
+
+.gazetteer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(20px, 4vw, 48px); border-top: 1px solid var(--rule); }
+.gazetteer a { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 11px 6px; border-bottom: 1px solid var(--rule-soft); transition: background .2s; }
+.gazetteer a:hover { background: var(--paper-lo); }
+.gazetteer a.is-on { background: color-mix(in srgb, var(--gold-leaf) 22%, transparent); }
+.gazetteer i { font-style: normal; font-weight: 700; font-size: .8125rem; color: var(--gold); font-variant-numeric: tabular-nums; }
+.gazetteer b { font-weight: 600; }
+.gazetteer span { font-size: .8125rem; color: var(--ink-3); text-align: right; }
+
+/* ─────────── 09 연표 ─────────── */
+.axis { padding: 54px clamp(18px, 3vw, 30px) 50px; }
+.axis__track { position: relative; height: 12px; }
+.axis__line { position: absolute; left: 0; right: 0; top: 5px; height: 2px; background: var(--ink); }
+.axis__line::before, .axis__line::after { content: ''; position: absolute; top: -5px; width: 2px; height: 12px; background: var(--ink); }
+.axis__line::before { left: 0; } .axis__line::after { right: 0; }
+/* 눈금 단추: 위쪽 이름표(.is-up)와 아래쪽 이름표(.is-down)가 서로 다른 자리를 차지해, 붙어 있는 해도 따로 누를 수 있다 */
+.axis__tick { position: absolute; left: var(--p); width: 36px; height: 40px; margin-left: -18px; }
+.axis__tick.is-up { top: -34px; }
+.axis__tick.is-down { top: 6px; }
+.axis__tick::before { content: ''; position: absolute; left: 12px; width: 12px; height: 12px; background: var(--paper-hi); border: 2px solid var(--ink); transform: rotate(45deg); transition: background .2s; }
+.axis__tick.is-up::before { top: 34px; }
+.axis__tick.is-down::before { top: -6px; }
+.axis__tick span { position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: .8125rem; font-weight: 600; line-height: 1.5; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.axis__tick.is-up span { top: 0; }
+.axis__tick.is-down span { bottom: 0; }
+.axis__tick.is-left span { transform: none; left: 11px; }
+.axis__tick.is-right span { transform: none; left: auto; right: 11px; }
+.axis__tick:hover::before, .axis__tick.is-on::before { background: var(--gold-leaf); }
+.axis__tick.is-now::before { border-color: var(--rubric); }
+.axis__tick.is-now span { color: var(--rubric); }
+
+.chron { margin-top: clamp(24px, 4vw, 40px); position: relative; }
+.chron::before { content: ''; position: absolute; left: 6.5rem; top: 8px; bottom: 8px; width: 1px; background: var(--rule); }
+.ev { position: relative; display: grid; grid-template-columns: 5.25rem minmax(0, 1fr); gap: 2.5rem; padding: 14px 8px 14px 0; scroll-margin-top: calc(var(--nav-h) + 24px); }
+.ev::before { content: ''; position: absolute; left: calc(6.5rem - 5.5px); top: 26px; width: 10px; height: 10px; background: var(--paper); border: 2px solid var(--ink); transform: rotate(45deg); }
+.ev.is-now::before { background: var(--rubric); border-color: var(--rubric); }
+.ev__year { text-align: right; font-variant-numeric: tabular-nums; line-height: 1.2; padding-top: 4px; }
+.ev__year small { display: block; font: 400 .75rem var(--f-latin); letter-spacing: .14em; color: var(--ink-3); }
+.ev__year b { font: 800 1.75rem var(--f-display); }
+.ev.is-now .ev__year b { color: var(--rubric); }
+.ev__body { display: grid; gap: 6px; max-width: 44em; padding-top: 4px; }
+.ev__body h3 { font: 800 1.3125rem/1.35 var(--f-display); display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.ev__body p { color: var(--ink-2); }
+.gap { position: relative; padding: 2px 0 2px 8.2rem; font-size: .8125rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+/* ─────────── 10 삼국 ─────────── */
+.ntabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--rule); background: var(--paper-hi); }
+.ntab { position: relative; display: flex; align-items: center; gap: 12px; padding: 14px clamp(12px, 2vw, 20px); border-right: 1px solid var(--rule); color: var(--ink-2); transition: background .2s, color .2s; }
+.ntab:last-child { border-right: 0; }
+.ntab .ic { width: 30px; height: 30px; color: var(--nc); flex-shrink: 0; }
+.ntab b { display: block; font: 800 1.125rem/1.3 var(--f-display); color: var(--ink); }
+.ntab small { display: block; font: 400 .6875rem var(--f-latin); letter-spacing: .14em; color: var(--ink-3); }
+.ntab:hover { background: color-mix(in srgb, var(--nc) 8%, var(--paper-hi)); }
+.ntab[aria-selected="true"] { background: color-mix(in srgb, var(--nc) 14%, var(--paper-hi)); }
+.ntab[aria-selected="true"]::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: var(--nc); }
+
+.nation { margin-top: clamp(20px, 3vw, 32px); }
+.nation.is-swap > * { animation: pageIn .45s var(--ease) both; }
+.nation__head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 3vw, 32px); align-items: center; padding-bottom: clamp(18px, 3vw, 28px); border-bottom: 1px solid var(--rule); }
+.nation__em { width: clamp(64px, 10vw, 104px); height: clamp(64px, 10vw, 104px); color: var(--nc); }
+.nation__head .eyebrow { color: var(--nc); }
+.nation__head h2 { font: 800 clamp(1.9rem, 4.6vw, 2.9rem)/1.15 var(--f-display); margin-top: 2px; }
+.nation__sum { color: var(--ink-2); margin-top: 8px; max-width: 38em; }
+.nation__keys { display: flex; flex-wrap: wrap; gap: 6px 28px; margin-top: 12px; }
+.nation__keys div { display: flex; align-items: baseline; gap: 8px; }
+.nation__keys dt { font-size: .8125rem; color: var(--ink-3); }
+.nation__keys dd { font-weight: 700; }
+
+.nfacts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(24px, 4vw, 56px); margin-top: 8px; }
+.nfacts > div { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); gap: 14px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--rule-soft); }
+.nfacts dt { font: 800 1.0625rem var(--f-display); color: var(--nc); }
+.nfacts dd { color: var(--ink-2); }
+
+.ncols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); margin-top: clamp(24px, 4vw, 36px); }
+.ncols h3, .nsub { font: 800 1.125rem var(--f-display); padding-bottom: 8px; margin-bottom: 4px; border-bottom: 1px solid var(--rule); display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.ncols h3 small, .nsub small { font: 400 .6875rem var(--f-latin); letter-spacing: .14em; color: var(--ink-3); }
+
+.families { margin-top: clamp(24px, 4vw, 36px); }
+.families ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--rule-soft); }
+.families li { display: grid; gap: 4px; align-content: start; padding: 14px 16px 16px 0; margin-right: 16px; border-right: 1px solid var(--rule-soft); }
+.families li:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
+.families b { font: 800 1.125rem var(--f-display); color: var(--nc); }
+.families span { color: var(--ink-2); font-size: .9375rem; }
+.families em { font-style: normal; font-size: .875rem; color: var(--ink); font-weight: 500; }
+
+.xref { margin-top: clamp(24px, 4vw, 36px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.xref ul { display: grid; gap: 0; }
+.xref li a { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--rule-soft); transition: color .2s; }
+.xref li a:hover { color: var(--gold); }
+.xref li:last-child a { border-bottom: 0; }
+.xref i { font-style: normal; font-size: .8125rem; color: var(--ink-3); font-variant-numeric: tabular-nums; min-width: 3.6em; }
+.xref .none { color: var(--ink-3); font-size: .9375rem; padding: 7px 0; }
+
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--paper-hi); }
+.compare { width: 100%; min-width: 720px; border-collapse: collapse; font-size: .9375rem; }
+.compare th, .compare td { padding: 12px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule-soft); border-right: 1px solid var(--rule-soft); }
+.compare tr:last-child > * { border-bottom: 0; }
+.compare tr > *:last-child { border-right: 0; }
+.compare thead td { border-bottom: 1px solid var(--rule); }
+.compare thead th { border-bottom: 1px solid var(--rule); font: 800 1.0625rem var(--f-display); color: var(--nc, var(--ink)); }
+.compare thead a { display: inline-flex; align-items: center; gap: 8px; }
+.compare thead .ic { width: 20px; height: 20px; }
+.compare tbody th { width: 4.5rem; font: 800 1rem var(--f-display); white-space: nowrap; }
+.compare td { color: var(--ink-2); }
+
+.diplo { display: grid; grid-template-columns: minmax(0, 25rem) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); align-items: center; }
+.diplo svg { width: 100%; height: auto; }
+.d-edge { stroke: var(--ink-3); stroke-width: 1.6; fill: none; transition: stroke .2s, stroke-width .2s; }
+.d-hit { stroke: transparent; stroke-width: 26; fill: none; cursor: pointer; }
+.d-lab rect { fill: var(--paper-hi); stroke: var(--rule); }
+.d-lab text { font: 600 13.5px var(--f-body); fill: var(--ink-2); text-anchor: middle; dominant-baseline: central; }
+.d-node circle { fill: var(--paper-hi); stroke: var(--nc); stroke-width: 2; }
+.d-node text { font: 800 16px var(--f-display); fill: var(--ink); text-anchor: middle; }
+.d-node .ic-use { color: var(--nc); }
+.d-g.is-on .d-edge { stroke: var(--gold); stroke-width: 3; }
+.d-g.is-on .d-lab rect { stroke: var(--gold); }
+.d-g.is-on .d-lab text { fill: var(--ink); }
+.d-g:focus { outline: none; }
+.d-g:focus-visible .d-lab rect { stroke: var(--gold); stroke-width: 2; }
+.diplo__list { border-top: 1px solid var(--rule); }
+.diplo__list li { display: grid; gap: 4px; padding: 14px 10px; border-bottom: 1px solid var(--rule-soft); transition: background .2s; }
+.diplo__list li.is-on { background: color-mix(in srgb, var(--gold-leaf) 20%, transparent); }
+.diplo__pair { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.diplo__pair .x { color: var(--ink-3); }
+.diplo__pair em { font-style: normal; font-weight: 700; margin-left: 4px; }
+.diplo__list p { color: var(--ink-2); }
+
+/* ─────────── 11 위계 ─────────── */
+.seg { display: inline-flex; border: 1px solid var(--ink); }
+.seg a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 22px; font-weight: 600; color: var(--ink-2); transition: background .2s, color .2s; }
+.seg a + a { border-left: 1px solid var(--ink); }
+.seg a small { font: 400 .75rem var(--f-latin); letter-spacing: .12em; }
+.seg a:hover { background: var(--paper-lo); }
+.seg a[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+.ladder-note { margin-top: 12px; color: var(--ink-3); font-size: .875rem; }
+.ladder { margin-top: 20px; border-top: 1px solid var(--rule); }
+.ladder.is-swap > * { animation: pageIn .4s var(--ease) both; animation-delay: calc(var(--k) * 35ms); }
+.rung { display: grid; grid-template-columns: 2.4rem minmax(0, 13rem) minmax(0, 1fr); gap: clamp(12px, 2.4vw, 28px); align-items: start; padding: 16px 6px; border-bottom: 1px solid var(--rule-soft); scroll-margin-top: calc(var(--nav-h) + 24px); }
+.rung__bar { height: 52px; display: flex; align-items: flex-end; justify-content: center; }
+.rung__bar i { display: block; width: 14px; height: calc(var(--lv) * 6.5px); background: var(--ink); opacity: calc(.28 + var(--lv) * .09); }
+.rung:first-child .rung__bar i { background: var(--gold-leaf); opacity: 1; outline: 1px solid var(--ink); }
+.rung__name b { display: block; font: 800 1.3125rem/1.3 var(--f-display); }
+.rung__name span { font: 400 .8125rem var(--f-latin); letter-spacing: .12em; color: var(--ink-3); }
+.rung__body { display: grid; gap: 8px; }
+.rung__body p { color: var(--ink-2); }
+.circles { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: .875rem; font-weight: 600; }
+.circles__pips { display: inline-flex; gap: 4px; }
+.circles__pips i { width: 11px; height: 11px; border: 1.5px solid var(--dm); border-radius: 50%; }
+.circles__pips i.is-full { background: var(--dm); }
+.circles__pips i.is-range { background: color-mix(in srgb, var(--dm) 45%, transparent); }
+.circles span { color: var(--dm); }
+.circles small { font-weight: 400; color: var(--ink-3); font-size: .8125rem; }
+
+/* ─────────── 12 화폐 ─────────── */
+.rate { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; font: 800 clamp(1.3rem, 3.4vw, 2rem)/1.3 var(--f-display); font-variant-numeric: tabular-nums; }
+.rate .eq { color: var(--ink-3); font-weight: 400; }
+.rate span { display: inline-flex; align-items: center; gap: 10px; }
+.coin { width: 1.5em; height: 1.5em; flex-shrink: 0; }
+.coin circle { stroke: var(--ink); stroke-width: 1.5; }
+.coin text { font: 700 15px var(--f-latin); text-anchor: middle; dominant-baseline: central; fill: #1A2036; }
+.coin--gold .c-fill { fill: #D9B45A; } .coin--silver .c-fill { fill: #C9CED3; } .coin--copper .c-fill { fill: #C98A5E; }
+.coin .c-rim { fill: none; stroke: #1A2036; stroke-opacity: .45; stroke-width: 1; stroke-dasharray: 1.5 2.5; }
+.coins { margin-top: clamp(20px, 3vw, 28px); border-top: 1px solid var(--rule); }
+.coins li { display: grid; grid-template-columns: 3rem minmax(0, 10rem) minmax(0, 9rem) minmax(0, 1fr); gap: clamp(10px, 2vw, 24px); align-items: center; padding: 16px 6px; border-bottom: 1px solid var(--rule-soft); scroll-margin-top: calc(var(--nav-h) + 24px); }
+.coins .coin { width: 3rem; height: 3rem; }
+.coins b { display: block; font: 800 1.3125rem/1.3 var(--f-display); }
+.coins b + span { font: 400 .8125rem var(--f-latin); letter-spacing: .12em; color: var(--ink-3); }
+.coins .worth { font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink-2); font-size: .9375rem; }
+.coins .use { display: grid; gap: 6px; }
+.coins .use > span { color: var(--ink-2); font-size: .9375rem; }
+
+.exchange { padding: clamp(18px, 3vw, 28px); display: grid; gap: 16px; }
+.exchange form { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+.exchange label { display: grid; gap: 4px; font-size: .8125rem; color: var(--ink-3); }
+.exchange input, .exchange select { height: 46px; padding: 0 12px; border: 1px solid var(--ink); background: var(--paper); font-size: 1.0625rem; font-weight: 600; font-variant-numeric: tabular-nums; border-radius: 0; }
+.exchange input { width: 10rem; max-width: 100%; }
+.exchange select { min-width: 7rem; }
+.exchange__out { display: grid; gap: 10px; }
+.exchange__sum { font: 800 clamp(1.25rem, 3vw, 1.75rem)/1.4 var(--f-display); font-variant-numeric: tabular-nums; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; }
+.exchange__sum span { display: inline-flex; align-items: center; gap: 8px; }
+.exchange__sum .coin { width: 1.3em; height: 1.3em; }
+.exchange__eq { color: var(--ink-2); font-size: .9375rem; font-variant-numeric: tabular-nums; }
+.exchange__note { color: var(--ink-3); font-size: .8125rem; }
+
+/* ─────────── 13 세력 ─────────── */
+.factions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(24px, 4vw, 56px); }
+.faction { display: grid; gap: 8px; align-content: start; padding: 4px 6px 20px; margin-bottom: 18px; border-bottom: 1px solid var(--rule-soft); scroll-margin-top: calc(var(--nav-h) + 24px); }
+.faction h3 { font: 800 1.3125rem/1.35 var(--f-display); display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.faction p { color: var(--ink-2); }
+.faction h3 .chip { font: 400 .8125rem/1.5 var(--f-body); }
+
+/* ─────────── 14 검색 · 알림 ─────────── */
+.palette {
+  width: min(600px, calc(100% - 24px)); max-height: min(540px, calc(100% - 80px));
+  margin: 10vh auto auto; padding: 0;
+  border: 1px solid var(--ink); background: var(--paper-hi); color: var(--ink);
+  box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--rule), 0 30px 80px -20px var(--shade);
+  overflow: hidden;
+}
+.palette[open] { display: grid; grid-template-rows: auto minmax(0, 1fr); animation: pageIn .25s var(--ease) both; }
+.palette::backdrop { background: color-mix(in srgb, var(--paper-lo) 78%, transparent); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.palette__field { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--rule); }
+.palette__field .ic { width: 19px; height: 19px; color: var(--gold); flex-shrink: 0; }
+.palette__field input { flex: 1; min-width: 0; border: 0; background: none; font-size: 1.0625rem; }
+.palette__field input:focus { outline: none; }
+.palette__field input::placeholder { color: var(--ink-3); }
+.palette__list { overflow-y: auto; padding: 6px; max-height: 420px; }
+.pal-group { padding: 10px 10px 4px; font: 400 .75rem var(--f-latin); letter-spacing: .14em; color: var(--ink-3); }
+.pal-item { display: flex; align-items: baseline; gap: 12px; padding: 9px 10px; cursor: pointer; }
+.pal-item b { font-weight: 600; }
+.pal-item small { color: var(--ink-3); font-size: .8125rem; margin-left: auto; text-align: right; }
+.pal-item mark { background: none; color: var(--gold); font-weight: 700; }
+.pal-item[aria-selected="true"] { background: color-mix(in srgb, var(--gold-leaf) 24%, transparent); }
+.pal-empty { padding: 30px 16px; text-align: center; color: var(--ink-3); }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 120;
+  transform: translate(-50%, 16px); opacity: 0; pointer-events: none;
+  padding: 9px 16px; background: var(--ink); color: var(--paper); font-size: .875rem; font-weight: 500;
+  transition: opacity .25s, transform .35s var(--ease);
+}
+.toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+
+/* ─────────── 15 바닥글 ─────────── */
+.foot { margin-top: clamp(48px, 8vw, 88px); border-top: 3px double var(--rule); }
+.pager { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding-block: 24px; }
+.pager a { display: grid; gap: 2px; padding: 14px 18px; border: 1px solid var(--rule); transition: border-color .2s, background .2s; }
+.pager a:hover { border-color: var(--ink); background: var(--paper-lo); }
+.pager small { font: 400 .75rem var(--f-latin); letter-spacing: .12em; color: var(--ink-3); }
+.pager b { font: 800 1.1875rem var(--f-display); }
+.pager .is-next { grid-column: 2; text-align: right; }
+.foot__line { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding-block: 18px 28px; border-top: 1px solid var(--rule-soft); color: var(--ink-3); font-size: .8125rem; }
+.foot__line button { text-decoration: underline; text-underline-offset: 3px; }
+.foot__line button:hover { color: var(--ink); }
+
+/* ─────────── 16 좁은 화면 ─────────── */
+@media (max-width: 1000px) {
+  .nav__menu { display: inline-flex; }
+  .nav__links {
+    position: absolute; left: 0; right: 0; top: 100%; height: auto; margin: 0;
+    flex-direction: column; gap: 0; padding: 6px var(--gutter) 14px;
+    background: var(--paper); border-bottom: 1px solid var(--rule);
+    max-height: calc(100vh - var(--nav-h)); overflow-y: auto;
+    visibility: hidden; opacity: 0; transform: translateY(-8px);
+    transition: opacity .25s, transform .3s var(--ease), visibility 0s .3s;
+  }
+  .nav.is-open .nav__links { visibility: visible; opacity: 1; transform: none; transition: opacity .25s, transform .3s var(--ease); }
+  .nav__links a { padding: 13px 4px; font-size: 1.0625rem; border-bottom: 1px solid var(--rule-soft); gap: 14px; }
+  .nav__links a i { min-width: 2.2em; font-size: .8125rem; }
+  .nav__links a::after { left: -8px; right: auto; top: 14px; bottom: 14px; width: 3px; height: auto; transform: scaleY(0); }
+  .nav__links a.is-active::after { transform: scaleY(1); }
+  .nav__tools { margin-left: auto; }
+  .tool kbd { display: none; }
+}
+@media (max-width: 1250px) {
+  .pin__body { transform: scale(1.2); }
+  .pin__label { font-size: 19px; }
+}
+@media (max-width: 1100px) {
+  .atlas { grid-template-columns: minmax(0, 1fr); }
+  .atlas__card { position: static; }
+  .pin__body { transform: none; }
+  .pin__label { font-size: 17px; }
+}
+@media (max-width: 860px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .now { grid-template-columns: minmax(0, 1fr); }
+  .pin__body { transform: scale(1.35); }
+  .pin__label { font-size: 21px; }
+  .pin__label[data-side="right"] { transform: translateX(7px); }
+  .pin__label[data-side="left"] { transform: translateX(-7px); }
+  .pin__label[data-side="below"] { transform: translateY(9px); }
+  .pin__label[data-side="above"] { transform: translateY(-5px); }
+  .m-nation { font-size: 36px; }
+  .ncols, .xref { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .families ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .families li:nth-child(2) { border-right: 0; margin-right: 0; padding-right: 0; }
+  .families li:nth-child(-n+2) { border-bottom: 1px solid var(--rule-soft); }
+  .diplo { grid-template-columns: minmax(0, 1fr); }
+  .diplo svg { max-width: 25rem; margin-inline: auto; }
+  .trio { grid-template-columns: minmax(0, 1fr); }
+  .trio a { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .trio a:last-child { border-bottom: 0; }
+}
+@media (max-width: 640px) {
+  body { font-size: .9688rem; }
+  .plate-head::after { top: clamp(22px, 5vw, 30px); bottom: auto; font-size: 3.6rem; }
+  /* 지도: 이름표는 숨기고 번호만 크게 (이름은 아래 목록과 카드에서) */
+  .pin__body { transform: scale(2.1); }
+  .pin__label { display: none; }
+  .m-nation { font-size: 46px; }
+  .m-nation-en { display: none; }
+  .rate { gap: 6px 8px; font-size: clamp(1rem, 4.5vw, 1.3rem); }
+  .rate span { gap: 6px; }
+  .rate .coin { width: 1.25em; height: 1.25em; }
+  .tool__label { display: none; }
+  .tool { width: 36px; padding: 0; justify-content: center; }
+  .plates a { grid-template-columns: 2.4rem minmax(0, 1fr) auto; }
+  .plates span { grid-column: 2 / -1; grid-row: 2; }
+  .worldfacts > div { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .now__items li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .gazetteer, .factions, .nfacts { grid-template-columns: minmax(0, 1fr); }
+  .ntab { flex-direction: column; align-items: flex-start; gap: 6px; padding: 12px 10px; }
+  .ntab small { display: none; }
+  .ntab b { font-size: 1rem; }
+  .nation__head { grid-template-columns: minmax(0, 1fr); }
+  .chron::before { left: 1.6rem; }
+  .ev { grid-template-columns: minmax(0, 1fr); gap: 2px; padding-left: 3.4rem; }
+  .ev::before { left: calc(1.6rem - 5.5px); top: 22px; }
+  .ev__year { text-align: left; display: flex; align-items: baseline; gap: 8px; }
+  .ev__year small { display: inline; }
+  .ev__year b { font-size: 1.4375rem; }
+  .gap { padding-left: 3.4rem; }
+  .rung { grid-template-columns: 1.4rem minmax(0, 1fr); }
+  .rung__body { grid-column: 2; }
+  .rung__bar i { width: 10px; }
+  .coins li { grid-template-columns: 3rem minmax(0, 1fr); }
+  .coins .worth, .coins .use { grid-column: 2; }
+  .families ul { grid-template-columns: minmax(0, 1fr); }
+  .families li { border-right: 0; margin-right: 0; padding-right: 0; border-bottom: 1px solid var(--rule-soft); }
+  .families li:last-child { border-bottom: 0; }
+  .pager { grid-template-columns: minmax(0, 1fr); }
+  .pager .is-next { grid-column: 1; }
+  .palette { margin-top: 12px; }
+  .seg { display: flex; }
+  .seg a { flex: 1; justify-content: center; padding: 0 10px; }
+}
+@media (hover: none) { .tool kbd, .palette__field kbd { display: none; } }
+
+/* ─────────── 17 움직임 줄이기 ─────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+</style>
+<script>
+/* 화면 모드 설정 및 인트로 화면 스킵 처리 */
+(function () {
+  var r = document.documentElement, skip = false;
+  try {
+    var t = localStorage.getItem('eridian-theme');
+    if (t === 'light' || t === 'dark') r.setAttribute('data-theme', t);
+  } catch (e) {}
+  try { skip = sessionStorage.getItem('eridian-entered') === '1'; } catch (e) {}
+  var h = (location.hash || '').replace(/^#\/?/, '');
+  if (h && h !== 'home') skip = true;
+  if (skip) r.classList.add('skip-gate');
+})();
+</script>
+
+<!-- ══════════ 그림 조각 (문장 · 아이콘) ══════════ -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="em-eridian" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><circle cx="24" cy="24" r="20.5"/><path d="M24 3.500l4.300 16.200L44.500 24l-16.200 4.300L24 44.500l-4.300-16.200L3.500 24l16.200-4.300Z"/></g><circle cx="24" cy="24" r="3" fill="currentColor"/></symbol>
+  <symbol id="em-rb" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="24" cy="24" r="8.500"/><path d="M24 4v7M24 37v7M4 24h7M37 24h7M9.900 9.900l5 5M33.100 33.100l5 5M38.100 9.900l-5 5M14.900 33.100l-5 5"/></g></symbol>
+  <symbol id="em-at" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M13 42V19h-3v-9h6v4h5v-4h6v4h5v-4h6v9h-3v23"/><path d="M20 42v-9a4 4 0 0 1 8 0v9"/><path d="M6 42h36"/></g></symbol>
+  <symbol id="em-dm" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><circle cx="24" cy="24" r="19"/><path d="M24 7l14.700 25.500H9.300Z"/><circle cx="24" cy="26" r="4.500"/></g></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21"/></g></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 12h15M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.500v2.500M12 19v2.500M2.500 12H5M19 12h2.500M5.300 5.300l1.800 1.800M16.900 16.900l1.800 1.800M18.700 5.300l-1.800 1.800M7.100 16.900l-1.800 1.800"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.500A8.500 8.500 0 0 1 9.500 4a8.500 8.500 0 1 0 10.500 10.500Z"/></symbol>
+</svg>
+
+<!-- ══════════ 표지 문 (인트로) ══════════ -->
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+  <div class="gate__inner">
+    <svg class="gate__emblem" viewBox="-200 -200 400 400" aria-hidden="true">
+      <circle class="g-ring" r="196"/>
+      <circle class="g-ticks" r="186"/>
+      <circle class="g-ring" r="172"/>
+      <g class="g-star">
+        <polygon points="0.0,-150.0 8.6,-43.2 30.6,-73.9 24.4,-36.6 79.2,-79.2 36.6,-24.4 73.9,-30.6 43.2,-8.6 150.0,0.0 43.2,8.6 73.9,30.6 36.6,24.4 79.2,79.2 24.4,36.6 30.6,73.9 8.6,43.2 0.0,150.0 -8.6,43.2 -30.6,73.9 -24.4,36.6 -79.2,79.2 -36.6,24.4 -73.9,30.6 -43.2,-8.6 -150.0,0.0 -43.2,-8.6 -73.9,-30.6 -36.6,-24.4 -79.2,-79.2 -24.4,-36.6 -30.6,-73.9 -8.6,-43.2"/>
+        <path d="M0,-150 L8.6,-43.2 L0,0Z M150,0 L43.2,8.6 L0,0Z M0,150 L-8.6,43.2 L0,0Z M-150,0 L-43.2,-8.6 L0,0Z"/>
+      </g>
+      <circle class="g-core" r="26"/>
+      <circle class="g-dot" r="7"/>
+    </svg>
+    <p class="gate__eyebrow">Eridian Continent</p>
+    <h1 class="gate__title" id="gateTitle">에리디안 대륙</h1>
+    <p class="gate__line" id="gateLine"></p>
+    <button class="btn btn--solid gate__enter" id="gateEnter" type="button">지리지를 펼친다</button>
+  </div>
+</div>
+
+<!-- ══════════ 상단 차례 ══════════ -->
+<header class="nav" id="nav">
+  <div class="nav__in">
+    <a class="nav__brand" href="#home" aria-label="에리디안 대륙 표지로">
+      <svg class="nav__mark" aria-hidden="true"><use href="#em-eridian"/></svg>
+      <span>에리디안 대륙</span>
+    </a>
+    <nav class="nav__links" id="navLinks" aria-label="챕터">
+      <a href="#world" data-nav="world"><i>I</i>세계</a>
+      <a href="#map" data-nav="map"><i>II</i>지리</a>
+      <a href="#timeline" data-nav="timeline"><i>III</i>연표</a>
+      <a href="#nations" data-nav="nations"><i>IV</i>삼국</a>
+      <a href="#ranks" data-nav="ranks"><i>V</i>위계</a>
+      <a href="#currency" data-nav="currency"><i>VI</i>화폐</a>
+      <a href="#factions" data-nav="factions"><i>VII</i>세력</a>
+    </nav>
+    <div class="nav__tools">
+      <button class="tool" id="searchBtn" type="button" aria-label="검색 열기">
+        <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><span class="tool__label">검색</span><kbd>Ctrl K</kbd>
+      </button>
+      <button class="tool tool--icon" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 바꾸기">
+        <svg class="ic i-moon" aria-hidden="true"><use href="#i-moon"/></svg><svg class="ic i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+      </button>
+      <button class="tool tool--icon nav__menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="메뉴 열기"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+<!-- ══════════ 표지 ══════════ -->
+<section class="page" data-page="home" aria-label="표지">
+  <div class="shell">
+    <div class="hero">
+      <div class="hero__text">
+        <p class="eyebrow">Eridian Continent</p>
+        <h1 class="hero__title">에리디안 대륙</h1>
+        <p class="hero__lead" id="heroLead">중세 판타지와 마법의 대륙.</p>
+        <div class="hero__cta">
+          <a class="btn btn--solid" href="#map">지도 보기<svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--line" href="#nations">세 나라 살펴보기</a>
+        </div>
+      </div>
+      <a class="hero__map frame" href="#map" aria-label="대륙 개략도. 지리 챕터로 이동">
+        <svg id="miniMap" viewBox="0 0 1000 700" role="img" aria-label="에리디안 대륙 개략도"></svg>
+        <span class="hero__mapcap">대륙 개략도</span>
+      </a>
+    </div>
+
+    <section class="now frame" aria-labelledby="nowTitle" id="nowPanel"></section>
+
+    <section class="block" aria-labelledby="platesTitle">
+      <header class="sec-head"><p class="eyebrow">Contents</p><h2 class="sec-title" id="platesTitle">차례</h2></header>
+      <ol class="plates" id="plates"></ol>
+    </section>
+  </div>
+</section>
+
+<!-- ══════════ I. 세계 ══════════ -->
+<section class="page" data-page="world" aria-labelledby="worldTitle" hidden>
+  <div class="shell">
+    <header class="plate-head" data-num="I">
+      <p class="eyebrow"><b>I</b>World</p>
+      <h1 id="worldTitle">세계</h1>
+      <p class="plate-head__sub">에리디안 대륙의 바탕. 장르와 환경, 기술과 사회, 문화와 기후.</p>
+    </header>
+    <dl class="worldfacts" id="worldFacts"></dl>
+    <section class="block" aria-labelledby="trioTitle">
+      <header class="sec-head"><p class="eyebrow">Three Nations</p><h2 class="sec-title" id="trioTitle">세 나라</h2></header>
+      <div class="trio" id="trio"></div>
+    </section>
+  </div>
+</section>
+
+<!-- ══════════ II. 지리 ══════════ -->
+<section class="page" data-page="map" aria-labelledby="mapTitle" hidden>
+  <div class="shell">
+    <header class="plate-head" data-num="II">
+      <p class="eyebrow"><b>II</b>Atlas</p>
+      <h1 id="mapTitle">지리</h1>
+      <p class="plate-head__sub">지도의 번호나 아래 목록을 누르면 그곳의 기록이 열립니다.</p>
+    </header>
+  </div>
+  <div class="shell shell--wide">
+    <div class="atlas">
+      <figure class="atlas__map frame">
+        <div class="atlas__scroll"><svg id="bigMap" viewBox="0 0 1000 700" role="group" aria-label="에리디안 대륙 개략도"></svg></div>
+        <figcaption id="mapCaption"></figcaption>
+      </figure>
+      <aside class="atlas__card frame" id="placeCard" aria-live="polite"></aside>
+    </div>
+  </div>
+  <div class="shell">
+    <section class="block" aria-labelledby="gazTitle">
+      <header class="sec-head"><p class="eyebrow">Gazetteer</p><h2 class="sec-title" id="gazTitle">지명 목록</h2></header>
+      <ol class="gazetteer" id="placeList"></ol>
+    </section>
+  </div>
+</section>
+
+<!-- ══════════ III. 연표 ══════════ -->
+<section class="page" data-page="timeline" aria-labelledby="timeTitle" hidden>
+  <div class="shell">
+    <header class="plate-head" data-num="III">
+      <p class="eyebrow"><b>III</b>Chronicle</p>
+      <h1 id="timeTitle">연표</h1>
+      <p class="plate-head__sub" id="timeSub"></p>
+    </header>
+    <div class="axis frame" id="axis"></div>
+    <ol class="chron" id="chron"></ol>
+  </div>
+</section>
+
+<!-- ══════════ IV. 삼국 ══════════ -->
+<section class="page" data-page="nations" aria-labelledby="nationsTitle" hidden>
+  <div class="shell">
+    <header class="plate-head" data-num="IV">
+      <p class="eyebrow"><b>IV</b>Nations</p>
+      <h1 id="nationsTitle">삼국</h1>
+      <p class="plate-head__sub">대륙을 나누어 다스리는 세 나라와 그 사이의 외교.</p>
+    </header>
+    <div class="ntabs" id="nationTabs" role="tablist" aria-label="국가 선택"></div>
+    <article class="nation" id="nationView" role="tabpanel"></article>
+
+    <section class="block" aria-labelledby="compareTitle" data-anchor="compare">
+      <header class="sec-head"><p class="eyebrow">Side by Side</p><h2 class="sec-title" id="compareTitle">삼국 비교</h2></header>
+      <div class="tablewrap"><table class="compare" id="compareTable"></table></div>
+    </section>
+
+    <section class="block" aria-labelledby="diploTitle" data-anchor="diplomacy">
+      <header class="sec-head"><p class="eyebrow">Diplomacy</p><h2 class="sec-title" id="diploTitle">외교 관계</h2></header>
+      <div class="diplo">
+        <svg id="diploSvg" viewBox="0 0 420 330" role="group" aria-label="세 나라의 외교 관계"></svg>
+        <ul class="diplo__list" id="diploList"></ul>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ══════════ V. 위계 ══════════ -->
+<section class="page" data-page="ranks" aria-labelledby="ranksTitle" hidden>
+  <div class="shell">
+    <header class="plate-head" data-num="V">
+      <p class="eyebrow"><b>V</b>Ranks</p>
+      <h1 id="ranksTitle">위계</h1>
+      <p class="plate-head__sub">전사와 마법사는 각각 여덟 단계로 나뉜다. 위에서 아래로 높은 순이다.</p>
+    </header>
+    <div class="seg" id="rankTabs" role="tablist" aria-label="위계 종류"></div>
+    <ol class="ladder" id="ladder"></ol>
+  </div>
+</section>
+
+<!-- ══════════ VI. 화폐 ══════════ -->
+<section class="page" data-page="currency" aria-labelledby="currencyTitle" hidden>
+  <div class="shell">
+    <header class="plate-head" data-num="VI">
+      <p class="eyebrow"><b>VI</b>Coinage</p>
+      <h1 id="currencyTitle">화폐</h1>
+      <p class="plate-head__sub">골드, 실버, 코퍼 세 가지 화폐가 쓰인다.</p>
+    </header>
+    <p class="rate" id="rate"></p>
+    <ul class="coins" id="coins"></ul>
+    <section class="block" aria-labelledby="exTitle">
+      <header class="sec-head"><p class="eyebrow">Exchange</p><h2 class="sec-title" id="exTitle">환산</h2><p>금액과 단위를 넣으면 세 화폐로 나누어 보여 줍니다.</p></header>
+      <div class="exchange frame">
+        <form id="exForm" novalidate>
+          <label for="exAmount">금액<input id="exAmount" type="number" inputmode="decimal" min="0" step="any" value="437"></label>
+          <label for="exUnit">단위<select id="exUnit"></select></label>
+        </form>
+        <div class="exchange__out" id="exOut" aria-live="polite"></div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ══════════ VII. 세력 ══════════ -->
+<section class="page" data-page="factions" aria-labelledby="factionsTitle" hidden>
+  <div class="shell">
+    <header class="plate-head" data-num="VII">
+      <p class="eyebrow"><b>VII</b>Factions</p>
+      <h1 id="factionsTitle">세력</h1>
+      <p class="plate-head__sub">세 나라 바깥에서 움직이는 중립 세력과 그 밖의 집단.</p>
+    </header>
+    <ul class="factions" id="factionList"></ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <nav class="pager" id="pager" aria-label="이전 · 다음 챕터"></nav>
+    <p class="foot__line"><span id="footNote">에리디안 대륙</span><button type="button" id="toTop">맨 위로</button></p>
+  </div>
+</footer>
+
+<!-- ══════════ 검색 ══════════ -->
+<dialog class="palette" id="palette" aria-label="검색">
+  <label class="palette__field" for="paletteInput">
+    <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+    <input id="paletteInput" type="text" placeholder="지명 · 국가 · 기관 · 계급 · 세력 검색" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="paletteList" aria-autocomplete="list">
+    <kbd>ESC</kbd>
+  </label>
+  <ul class="palette__list" id="paletteList" role="listbox"></ul>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript><p style="padding:24px">이 설정집은 자바스크립트를 켜야 내용이 보입니다.</p></noscript>
+<script>
+/* =========================================================
+   에리디안 대륙 — 설정 데이터
+   ========================================================= */
+window.ERIDIAN = {
+
+  /* ─────────── 기본 정보 ─────────── */
+  meta: {
+    name: '에리디안 대륙',
+    latin: 'Eridian Continent',
+    lead: '중세 판타지와 마법의 대륙. 평원과 숲, 고산과 호수, 강이 이어지는 땅을 세 나라가 나누어 다스린다.'
+  },
+
+  /* 현재 시점 (표지 · 연표에 표시) */
+  now: {
+    year: 992,
+    title: '세리나 여왕 즉위 3주년',
+    items: [
+      { n: 'rb', text: '세리나 여왕 즉위 3주년. 왕국은 안정되어 있다.' },
+      { n: 'dm', text: '신형 마법 병기가 긴장을 높이고 있다.' },
+      { n: 'at', text: '북부에서 낯선 종족과 교전이 벌어지고 있다.' }
+    ],
+    result: '대륙의 긴장이 높아지고 있다.'
+  },
+
+  /* ─────────── I. 세계 ─────────── */
+  world: [
+    { key: '장르', en: 'Genre', chips: ['중세 판타지', '마법'] },
+    { key: '환경', en: 'Environment', chips: ['평원', '숲', '고산', '호수', '강'] },
+    { key: '기술', en: 'Technology', text: '중세 수준을 바탕으로 마법과 연금술이 발달했다.' },
+    { key: '사회', en: 'Society', chips: ['군주제', '귀족', '기사', '종교', '마법사'] },
+    { key: '문화', en: 'Culture', chips: ['음악', '미술', '연회', '마법·연금술 연구'] },
+    { key: '자연 · 기후', en: 'Nature & Climate', text: '지역마다 다양하다. 평원과 숲은 온화하고, 산악 지대는 춥고 험준하다.' }
+  ],
+
+  /* ─────────── II. 지리 ───────────
+     x, y      지도 위 위치 (가로 0~1000, 세로 0~700)
+     lx, ly    이름표 위치,  la  이름표 정렬 (start 왼쪽 맞춤 · middle 가운데 · end 오른쪽 맞춤)
+     n         관련 국가 id 목록                                              */
+  places: [
+    { id: 'canyon', name: '운명의 협곡', kind: '협곡', where: '루벤티스 · 알타니아 경계', n: ['rb', 'at'],
+      desc: '루벤티스와 알타니아 사이의 완충지대. 고대 유물에 얽힌 전설이 전해진다.',
+      x: 385, y: 347, lx: 385, ly: 382, la: 'middle' },
+    { id: 'mana-peaks', name: '태고의 마나 봉우리', kind: '고산', where: '다르모르 북부', n: ['dm'],
+      desc: '마력이 집중된 고산지대. 아크메이지만 드나드는 마법 성지다.',
+      x: 735, y: 150, lx: 735, ly: 112, la: 'middle' },
+    { id: 'spine', name: '대륙의 척추 산맥', kind: '산맥', where: '알타니아 일대', n: ['at'],
+      desc: '알타니아가 대부분을 차지하는 광물 산맥. 세 나라를 가르는 지리적 장벽이다.',
+      x: 532, y: 196, lx: 552, ly: 201, la: 'start' },
+    { id: 'forgotten-coast', name: '잊혀진 해안선', kind: '해안', where: '대륙 서쪽 끝', n: [],
+      desc: '황량한 해안. 공식 무역이 이루어지지 않으며, 해적과 비밀결사의 은신처다.',
+      x: 150, y: 400, lx: 170, ly: 405, la: 'start' },
+    { id: 'dragon-tomb', name: '고대 드래곤의 무덤', kind: '동굴', where: '알타니아 북부 깊숙한 곳', n: ['at'],
+      desc: '드래곤이 최후를 맞은 동굴. 마법 보물이 잠들어 있다는 전설이 있다.',
+      x: 300, y: 152, lx: 300, ly: 187, la: 'middle' },
+    { id: 'fog-lake', name: '영원의 안개 호수', kind: '호수', where: '다르모르 서쪽 경계', n: ['dm'],
+      desc: '일 년 내내 짙은 안개가 끼는 호수. 일반인의 접근이 금지되어 있다.',
+      x: 584, y: 272, lx: 604, ly: 277, la: 'start' },
+    { id: 'sun-plain', name: '태양의 평원', kind: '평원', where: '루벤티스 중부', n: ['rb'],
+      desc: '광활한 평야. 농업 생산성이 높아 루벤티스 경제의 근간을 이룬다.',
+      x: 452, y: 448, lx: 452, ly: 483, la: 'middle' },
+    { id: 'jungle', name: '남부 밀림 지대', kind: '밀림', where: '대륙 남쪽 끝', n: [],
+      desc: '습한 미개척 열대림. 희귀한 재료가 나지만 위험한 야생 생물이 산다.',
+      x: 468, y: 616, lx: 488, ly: 621, la: 'start' },
+    { id: 'giants-steps', name: '거인의 징검다리', kind: '현무암 해안', where: '대륙 북쪽 해안', n: ['at'],
+      desc: '현무암 기둥이 늘어선 해안. 알타니아 독립 교단의 성지다.',
+      x: 420, y: 92, lx: 420, ly: 62, la: 'middle' },
+    { id: 'sacred-cave', name: '신성 동굴', kind: '동굴', where: '루벤티스 · 다르모르 경계', n: ['rb', 'dm'],
+      desc: '석회암 동굴. 초기 솔라리스교 성자가 은거하던 곳이다.',
+      x: 650, y: 412, lx: 670, ly: 417, la: 'start' }
+  ],
+
+  /* 지도 그림 (개략도) */
+  map: {
+    image: '',
+    coast: [[185,175],[245,112],[330,96],[412,80],[470,104],[538,78],[620,102],[700,88],[782,120],[852,165],[892,232],[906,312],[884,392],[846,452],[800,502],[742,546],[690,592],[618,632],[540,656],[462,640],[380,656],[302,622],[240,572],[182,520],[132,452],[106,372],[120,292],[150,224]],
+    regions: {
+      at: [[80,40],[560,40],[548,150],[562,240],[546,336],[440,352],[330,342],[236,302],[200,232],[80,200]],
+      dm: [[560,40],[980,40],[980,440],[830,472],[700,442],[640,402],[590,332],[546,336],[562,240],[548,150]],
+      rb: [[236,302],[330,342],[440,352],[546,336],[590,332],[640,402],[700,442],[762,482],[704,562],[600,586],[480,576],[360,586],[270,542],[214,470],[200,382]]
+    },
+    labels: { at: [322, 262], dm: [768, 318], rb: [470, 540] },
+    borders: [
+      [[560,60],[548,150],[562,240],[546,336]],
+      [[546,336],[440,352],[330,342],[236,302]],
+      [[546,336],[590,332],[640,402],[700,442]]
+    ],
+    limits: [
+      [[236,302],[200,232],[120,206]],
+      [[236,302],[200,382],[214,470],[270,542],[360,586],[480,576],[600,586],[704,562],[762,482],[700,442]],
+      [[700,442],[830,472],[900,446]]
+    ],
+    spine: [[516,112],[534,170],[546,236],[538,298],[502,334],[440,344],[372,336],[300,316]]
+  },
+
+  /* ─────────── III. 연표 ─────────── */
+  timeline: [
+    { year: 0, title: '솔라리스 강림', n: ['rb'],
+      desc: '루벤티스 국교인 솔라리스교의 초대 대주교가 태양신의 계시를 받고 ‘빛의 시대’를 선포했다. 이로써 루벤티스가 연표의 기준국이 된다.' },
+    { year: 45, title: '알타니아 부족 통일', n: ['at'],
+      desc: '지도자 ‘알타르’ 아래 부족들이 통일되어 군사 국가 알타니아 공국이 세워졌다.' },
+    { year: 301, title: '에테르의 폭풍', n: [],
+      desc: '대륙 중앙에서 마나가 폭주해 고대 유적과 마법사들이 파멸을 맞았다. 이를 계기로 마법의 통제와 체계화가 시작되었다.' },
+    { year: 480, title: '다르모르 제국 건국', n: ['dm'],
+      desc: '마법 학파들이 학문의 안전을 위해 연합해 제국을 세웠다. 학문과 실험이 통치의 중심이 되었다.' },
+    { year: 722, title: '벨라나르 무역 분쟁', n: ['rb', 'at'],
+      desc: '도시 벨라나르를 둘러싸고 루벤티스와 알타니아가 무력으로 충돌했다. 외교 합의로 끝났지만 긴장은 높아졌다.' },
+    { year: 989, title: '세리나 여왕 즉위', n: ['rb'],
+      desc: '루벤티스 국왕 세리나가 22세의 나이로 즉위했다. 교회와 협력하며 왕권 안정에 힘쓴다.' },
+    { year: 992, title: '현재', n: ['rb', 'dm', 'at'], now: true,
+      desc: '여왕 즉위 3주년. 루벤티스는 안정되었으나, 다르모르의 신형 마법 병기와 알타니아 북부에서 벌어진 낯선 종족과의 교전으로 대륙의 긴장이 높아지고 있다.' }
+  ],
+
+  /* ─────────── IV. 삼국 ─────────── */
+  order: ['rb', 'at', 'dm'],
+  nations: {
+    rb: {
+      name: '루벤티스 왕국', short: '루벤티스', kind: '왕국', en: 'Kingdom',
+      where: '대륙 중앙',
+      ruler: ['여왕', '세리나'],
+      summary: '평원과 숲, 호수와 강이 펼쳐진 대륙 중앙의 왕국. 왕권과 교권이 결합되어 있다.',
+      facts: [
+        ['지리', '대륙 중앙. 평원·숲·호수·강이 펼쳐진다.'],
+        ['군사', '상비군, 왕실 근위대, 솔라리스 기사단.'],
+        ['경제', '농업과 수공업이 바탕이다. 수도 솔라노르를 중심으로 상업이 이루어지고 해외 무역이 활발하다.'],
+        ['정치', '왕권과 교권이 결합되어 있다. 여왕과 대주교가 협력한다.'],
+        ['종교', '솔라리스교(태양과 빛). 정의·진리·계율을 강조한다.'],
+        ['기술', '중세 기술에 왕실과 기사단의 마법이 더해진다.']
+      ],
+      cities: [['솔라노르', '수도'], ['벨라나르', '상업'], ['글로렌드', '농업']],
+      institutions: [
+        ['솔라리스 대성당', '솔라리스교 본부'], ['왕실 재무부', '재정'], ['솔라노르 마법학교', '교육'],
+        ['성검 기사단 본부', '수호'], ['왕실 근위대 사령부', '보안'], ['일루미나 신학교', '연구'],
+        ['벨라나르 상업 심의회', '무역']
+      ],
+      areas: [
+        ['시안 강', '주요 수로'], ['일루미나 성소', '영성'], ['로즈우드 숲', '사냥 · 휴식'],
+        ['아르카디아 호수', '담수'], ['은빛 평원', '말(馬)'], ['서부 국경 요새', '알타니아 방어선']
+      ]
+    },
+    at: {
+      name: '알타니아 공국', short: '알타니아', kind: '공국', en: 'Duchy',
+      where: '대륙 북부',
+      summary: '북부 고원과 산지의 군사 국가. 기사와 요새, 광산의 나라다.',
+      facts: [
+        ['지리', '북부의 고원과 산지, 광산. 중앙 평원 시부를 포함한다.'],
+        ['군사', '기사가 중심이다. 기병과 요새화된 도시를 갖췄다.'],
+        ['경제', '광산 자원과 군수품. 중세 수준의 교역망을 운영한다.'],
+        ['정치', '귀족 중심. 군사력과 권력이 균형을 이룬다.'],
+        ['종교', '독립 교단. 기사 중심의 신앙이다.'],
+        ['기술', '군사 기술과 요새 건축에 특화되어 있다. 마법보다 물리력을 앞세운다.']
+      ],
+      cities: [['알타니움', '수도'], ['드라켄홀', '광산'], ['브라그스톤', '요새']],
+      institutions: [
+        ['기사단 명예 회의', '명예'], ['워로드 총사령부', '군사'], ['드라켄홀 광산청', '광물'],
+        ['철벽 수련원', '정예 양성'], ['브라그스톤 방어 위원회', '요새 기술'], ['토너먼트 관리국', '축제'],
+        ['산악 정찰대 본부', '정찰']
+      ],
+      areas: [
+        ['브루나 강', '방어'], ['철벽 봉우리', '수련'], ['기사들의 평원', '토너먼트'],
+        ['북부 관문', '다르모르로 가는 길'], ['쉴드헤븐', '광산 마을'], ['검은 호수', '전설 · 결투'],
+        ['바위 요새', '루벤티스 방어선']
+      ]
+    },
+    dm: {
+      name: '다르모르 제국', short: '다르모르', kind: '제국', en: 'Empire',
+      where: '산 · 숲 · 호수 지대',
+      summary: '마법사와 연금술사가 다스리는 제국. 산과 숲, 호수가 섞인 습하고 안개 낀 땅이다.',
+      facts: [
+        ['지리', '산·숲·호수가 섞여 있다. 습하고 안개가 잦다.'],
+        ['군사', '마법사와 연금술사가 기반이다. 원거리 전투와 마법 병기에서 우위에 있다.'],
+        ['경제', '마법 물품과 연금술 재료를 교역한다. 수입 의존도가 높다.'],
+        ['정치', '마법사와 연금술사가 중심이다. 상류층이 권력을 독점한다.'],
+        ['종교', '신앙보다 학문과 마법을 앞세운다. 마법 사제가 존재한다.'],
+        ['기술', '최고 수준의 연금술과 마법. 원거리 공격 부대를 운용한다.']
+      ],
+      cities: [['다르모리스', '수도'], ['에스텔라', '마법사 거점'], ['브라먼트', '연구소 거점']],
+      institutions: [
+        ['에스텔라 고등 마도 학원', '고등 교육'], ['제국 마법 심의회', '통치'], ['브라먼트 병기 개발국', '병기'],
+        ['다르모리스 일반 마법 학교', '기초 교육'], ['연금술 마이스터 길드', '표준'], ['고대 지식 복원국', '연구'],
+        ['마나의 호수 관리국', '자원']
+      ],
+      families: [
+        ['벨라스트라', '고대서 해석, 마력 시문학, 정밀 결계.', '에스텔라 학원을 주도한다.'],
+        ['카르투스', '파괴 마법과 마법 병기.', '전투단을 창설하고 지휘한다.'],
+        ['에르미스', '연금술과 생명 마법.', '의료·포션 산업을 지배한다.'],
+        ['아르카노프', '유물 발굴과 아티팩트 관리.', '전략 자산을 보관한다.']
+      ],
+      areas: [
+        ['침묵의 숲', '습지 · 연구'], ['마나의 호수', '마나의 원천'], ['연금술 장원', '호화 · 외교'],
+        ['안개 계곡', '루벤티스 방어선'], ['고대 마법진 유적지', ''], ['공중 정원', '귀족 거주지'],
+        ['검은 숲', '목재 · 공장']
+      ]
+    }
+  },
+
+  /* 외교 관계 */
+  diplomacy: [
+    { a: 'rb', b: 'at', label: '경쟁 · 긴장', desc: '서로 경쟁하며 긴장 관계에 있다. 비상시에는 동맹을 맺는다.' },
+    { a: 'rb', b: 'dm', label: '협상 · 부분 교류', desc: '정치·경제 현안을 협상한다. 마법은 부분적으로 교류한다.' },
+    { a: 'at', b: 'dm', label: '교역 · 정보 교환', desc: '교역과 정보 교환을 한다. 마법 기술은 제한적으로만 공유한다.' }
+  ],
+
+  /* ─────────── V. 위계 ─────────── (위에서 아래로 높은 순)
+     마법사의 circle 은 [최소, 최대] 서클. plus: true 는 '이상'. grade 는 학년. */
+  ranks: {
+    warrior: {
+      name: '전사', en: 'Warrior',
+      tiers: [
+        { ko: '워로드', en: 'Warlord', desc: '전략·병참·지휘의 대가. 세기적인 존재로 꼽힌다.', chips: ['귀족 신분'] },
+        { ko: '챔피언', en: 'Champion', desc: '국가와 기사단을 대표한다. 투지를 마력으로 바꾸어 마나로 육체를 감싼다.', chips: ['나라마다 10명 미만'] },
+        { ko: '배틀 마스터', en: 'Battle Master', desc: '실전 지휘관. 결투식을 터득했다. 재능과 노력이 함께 필요하다.', chips: ['참모 · 단장급'] },
+        { ko: '나이트 커맨더', en: 'Knight Commander', desc: '부대를 이끈다. 오러를 완숙하게 다룬다.', chips: ['대대 · 단장급'] },
+        { ko: '나이트', en: 'Knight', desc: '정식 서약을 한 기사. 오러를 사용한다.', chips: ['중대장 이상'] },
+        { ko: '베테랑', en: 'Veteran', desc: '숙련병. 신병을 교육하며 실전 감각을 갖췄다.', chips: ['중대장급'] },
+        { ko: '솔저', en: 'Soldier', desc: '기본 무기를 다루고 전열을 이룬다. 체력과 복종이 요구된다.', chips: ['하급 · 중급 대원'] },
+        { ko: '리크루트', en: 'Recruit', desc: '입문 단계. 훈련이 중심이다.', chips: ['하급 대원'] }
+      ]
+    },
+    mage: {
+      name: '마법사', en: 'Mage',
+      tiers: [
+        { ko: '아크메이지', en: 'Archmage', desc: '원리를 이해하고 법칙을 창조한다. 역사에 남는 거장.', circle: [7, 8], chips: [] },
+        { ko: '그랜드 소서러', en: 'Grand Sorcerer', desc: '학파나 전투단의 수장이자 국가 자문관.', circle: [6, 7], chips: ['나라마다 5명 미만'] },
+        { ko: '하이 메이지', en: 'High Mage', desc: '요새 방위를 맡는 지휘자. 6서클을 제어하며 마법진과 결계를 운용한다.', circle: [6, 6], chips: [] },
+        { ko: '배틀 메이지', en: 'Battle Mage', desc: '전투에 집중한 고위 전투가. 갑옷과 무기를 사용한다.', circle: [4, 5], chips: [] },
+        { ko: '메이지', en: 'Mage', desc: '숙련자. 연구직이나 군속으로 일한다.', circle: [3, 3], plus: true, grade: '5~6학년 · 졸업생 수준', chips: [] },
+        { ko: '어프렌티스', en: 'Apprentice', desc: '기초 결계를 다루지만 지속력이 낮다.', circle: [2, 2], grade: '3~6학년 실습', chips: [] },
+        { ko: '노비스', en: 'Novice', desc: '마력을 감응하고 기초 조작을 익힌다.', circle: [1, 1], grade: '2~5학년', chips: [] },
+        { ko: '애콜라이트', en: 'Acolyte', desc: '입문 단계. 마나를 지각하는 법을 공부한다.', grade: '1~3학년', chips: [] }
+      ]
+    }
+  },
+
+  /* ─────────── VI. 화폐 ─────────── copper = 코퍼로 환산한 값 */
+  currency: [
+    { id: 'gold', ko: '골드', en: 'Gold', copper: 200, use: '고액 거래', examples: ['말', '갑옷', '영지'] },
+    { id: 'silver', ko: '실버', en: 'Silver', copper: 10, use: '중산층의 거래', examples: ['일당', '숙박', '의복'] },
+    { id: 'copper', ko: '코퍼', en: 'Copper', copper: 1, use: '소액 거래', examples: ['빵', '맥주'] }
+  ],
+
+  /* ─────────── VII. 세력 ─────────── */
+  factions: [
+    { id: 'shadow-dagger', name: '그림자 단검 길드', mark: '국법 밖', n: [],
+      desc: '암살과 절도를 업으로 삼는 연합. 국법을 따르지 않는다.' },
+    { id: 'golden-silk', name: '황금 비단 상회', mark: '삼국 무역', n: ['rb', 'at', 'dm'],
+      desc: '세 나라를 오가며 무역한다. 정치적 영향력이 크다.' },
+    { id: 'silver-wanderers', name: '은빛 방랑 마법사', mark: '자유 연구', n: ['dm'],
+      desc: '다르모르의 통제를 받지 않는 자유 연구 집단.' },
+    { id: 'northern-tribes', name: '북부 야만 부족', mark: '충돌 또는 용병', n: ['at'],
+      desc: '알타니아 북쪽에 산다. 강인한 육체를 지녔으며, 충돌하거나 용병으로 고용된다.' },
+    { id: 'old-tongue', name: '고대어 연구회', mark: '유물 해독', n: ['rb', 'dm'],
+      desc: '루벤티스와 다르모르의 학자들이 협력한다. 유물 해독에 집중한다.' },
+    { id: 'forest-wardens', name: '숲의 수호자', mark: '정령 마법', n: [],
+      desc: '정령 마법을 쓴다. 외부인을 경계한다.' },
+    { id: 'red-banner', name: '붉은 깃발 용병대', mark: '기마 전술', n: ['at'],
+      desc: '알타니아 전사가 중심인 용병대. 기마 전술에 특화되어 있다.' },
+    { id: 'forbidden-cult', name: '금단의 지식 컬트', mark: '금지된 마법', n: [],
+      desc: '비밀 종교. 공식 신앙을 부정하고 금지된 마법을 추구한다.' },
+    { id: 'lake-fishers', name: '호수 어부 공동체', mark: '자립 공동체', n: [],
+      desc: '국경의 호수에서 자립해 살아간다. 호수의 비밀을 지킨다.' },
+    { id: 'oathless', name: '맹세 없는 기사단', mark: '명예 중시', n: [],
+      desc: '추방된 자들이지만 명예를 중시한다. 정의와 호위에 힘쓴다.' }
+  ]
+};
+</script>
+<script>
+/* =========================================================
+   에리디안 대륙 — 동작
+   ========================================================= */
+(() => {
+  'use strict';
+
+  const D = window.ERIDIAN;
+  const root = document.documentElement;
+  const body = document.body;
+  root.lang = 'ko';
+  if (!D) { root.classList.add('skip-gate'); return; }
+
+  /* ─────────── 도구 ─────────── */
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const smooth = () => (reduce() ? 'auto' : 'smooth');
+  const f1 = n => (Math.round(n * 10) / 10).toString();
+  const icon = (id, cls = '') => `<svg class="ic${cls ? ' ' + cls : ''}" aria-hidden="true"><use href="#${id}"/></svg>`;
+  const keep = area => ({
+    get(k) { try { return window[area].getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { window[area].setItem(k, v); } catch (e) { /* 저장소를 못 쓰는 환경 */ } }
+  });
+  const store = keep('localStorage');
+  const sess = keep('sessionStorage');
+
+  const N = D.nations;
+  const ORDER = D.order;
+  const nationChip = id => `<a class="chip chip--nation" data-n="${id}" href="#nations.${id}">${icon('em-' + id)}${esc(N[id].short)}</a>`;
+  const nationChips = ids => (ids.length ? `<div class="chips">${ids.map(nationChip).join('')}</div>` : '');
+  const replay = (el, cls) => { if (reduce()) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
+  const reveal = el => {
+    if (!el) return;
+    el.scrollIntoView({ behavior: smooth(), block: 'center' });
+    replay(el, 'is-flash');
+  };
+  const byKey = (scope, key) => $$('[data-key]', scope).find(el => el.dataset.key === key);
+
+  /* ─────────── 밝은 화면 / 어두운 화면 ─────────── */
+  (() => {
+    const btn = $('#themeBtn');
+    const mq = matchMedia('(prefers-color-scheme: dark)');
+    const current = () => root.getAttribute('data-theme') || (mq.matches ? 'dark' : 'light');
+    const paint = () => root.classList.toggle('is-dark', current() === 'dark');
+    btn.addEventListener('click', () => {
+      const next = current() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      store.set('eridian-theme', next);
+      paint();
+    });
+    if (mq.addEventListener) mq.addEventListener('change', paint);
+    if ('MutationObserver' in window) new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    paint();
+  })();
+
+  /* ─────────── 알림 ─────────── */
+  const toast = (() => {
+    const el = $('#toast');
+    let t = 0;
+    return msg => { el.textContent = msg; el.classList.add('is-on'); clearTimeout(t); t = setTimeout(() => el.classList.remove('is-on'), 2200); };
+  })();
+
+  /* ═══════════ 지도 그림 ═══════════
+     해안선 · 영토 · 산맥을 data.js 의 좌표로 그립니다. (image 가 지정되면 그 이미지를 깝니다) */
+  const MapArt = (() => {
+    const M = D.map;
+    const placeOf = id => D.places.find(p => p.id === id);
+
+    /* 언제나 같은 결과가 나오는 난수 */
+    const rng = seed => () => {
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+
+    /* 닫힌 곡선을 촘촘한 점으로 */
+    function closedSpline(P, per) {
+      const n = P.length, out = [];
+      for (let i = 0; i < n; i++) {
+        const a = P[(i - 1 + n) % n], b = P[i], c = P[(i + 1) % n], d = P[(i + 2) % n];
+        for (let s = 0; s < per; s++) {
+          const t = s / per, t2 = t * t, t3 = t2 * t;
+          out.push([0, 1].map(k => 0.5 * (2 * b[k] + (c[k] - a[k]) * t + (2 * a[k] - 5 * b[k] + 4 * c[k] - d[k]) * t2 + (3 * b[k] - a[k] - 3 * c[k] + d[k]) * t3)));
+        }
+      }
+      return out;
+    }
+    /* 해안선에 자잘한 굴곡 */
+    function wobble(pts) {
+      const n = pts.length, F = [7, 13, 23, 41], A = [5, 3.2, 2.2, 1.3], PH = [0.6, 2.1, 4.0, 5.3];
+      return pts.map((p, k) => {
+        const a = pts[(k - 1 + n) % n], b = pts[(k + 1) % n];
+        let nx = b[1] - a[1], ny = -(b[0] - a[0]);
+        const len = Math.hypot(nx, ny) || 1; nx /= len; ny /= len;
+        const ang = (k / n) * Math.PI * 2;
+        const off = F.reduce((s, fq, j) => s + A[j] * Math.sin(fq * ang + PH[j]), 0);
+        return [p[0] + nx * off, p[1] + ny * off];
+      });
+    }
+    /* 열린 선을 부드러운 곡선으로 */
+    function curve(P) {
+      let d = `M${f1(P[0][0])} ${f1(P[0][1])}`;
+      for (let i = 0; i < P.length - 1; i++) {
+        const a = P[i - 1] || P[i], b = P[i], c = P[i + 1], e = P[i + 2] || c;
+        d += `C${f1(b[0] + (c[0] - a[0]) / 6)} ${f1(b[1] + (c[1] - a[1]) / 6)} ${f1(c[0] - (e[0] - b[0]) / 6)} ${f1(c[1] - (e[1] - b[1]) / 6)} ${f1(c[0])} ${f1(c[1])}`;
+      }
+      return d;
+    }
+    let coastD = '';
+    const coast = () => {
+      if (!coastD) coastD = 'M' + wobble(closedSpline(M.coast, 10)).map(p => f1(p[0]) + ' ' + f1(p[1])).join('L') + 'Z';
+      return coastD;
+    };
+
+    const peak = (x, y, s) =>
+      `<path class="m-mt" d="M${f1(x - s)} ${f1(y)}L${f1(x)} ${f1(y - s * 1.35)}L${f1(x + s)} ${f1(y)}"/>` +
+      `<path class="m-mt-shade" d="M${f1(x)} ${f1(y - s * 1.35)}L${f1(x + s * 0.32)} ${f1(y - s * 0.5)}L${f1(x + s * 0.06)} ${f1(y)}"/>`;
+
+    /* 선을 따라 산 기호를 늘어놓기 (협곡 자리는 비움) */
+    function range(line, seed, skip) {
+      const r = rng(seed), g = [];
+      for (let i = 0; i < line.length - 1; i++) {
+        const [x1, y1] = line[i], [x2, y2] = line[i + 1];
+        const steps = Math.max(1, Math.round(Math.hypot(x2 - x1, y2 - y1) / 21));
+        for (let s = 0; s < steps; s++) {
+          const t = s / steps;
+          const x = x1 + (x2 - x1) * t + (r() - 0.5) * 12, y = y1 + (y2 - y1) * t + (r() - 0.5) * 10;
+          const size = 9 + r() * 6;
+          if (skip && Math.hypot(x - skip.x, y - skip.y) < 26) continue;
+          g.push([x, y, size]);
+        }
+      }
+      return g.sort((a, b) => a[1] - b[1]).map(p => peak(p[0], p[1], p[2])).join('');
+    }
+
+    function terrain() {
+      const out = [];
+      const canyon = placeOf('canyon');
+      if (M.spine) out.push(range(M.spine, 11, canyon));
+      if (canyon) out.push(`<path class="m-wave" d="M${canyon.x - 13} ${canyon.y - 20}l5 12M${canyon.x + 8} ${canyon.y - 20}l5 12M${canyon.x - 13} ${canyon.y + 9}l5 12M${canyon.x + 8} ${canyon.y + 9}l5 12"/>`);
+      const mana = placeOf('mana-peaks');
+      if (mana) out.push([[-40, 30, 13], [-16, 20, 18], [16, 26, 15], [42, 34, 11], [-2, 40, 12]].sort((a, b) => a[1] - b[1]).map(o => peak(mana.x + o[0], mana.y + o[1], o[2])).join(''));
+      const fog = placeOf('fog-lake');
+      if (fog) out.push(`<ellipse class="m-lake" cx="${fog.x}" cy="${fog.y + 4}" rx="30" ry="15" transform="rotate(-14 ${fog.x} ${fog.y + 4})"/>` +
+        `<path class="m-fog" d="M${fog.x - 44} ${fog.y - 18}q22 -10 44 0t44 0M${fog.x - 36} ${fog.y + 28}q18 8 36 0t36 0"/>`);
+      const plain = placeOf('sun-plain');
+      if (plain) out.push([-30, -18, 18, 30].map((dy, i) => `<path class="m-field" d="M${plain.x - 78 + i * 9} ${plain.y + dy}h${150 - i * 14}"/>`).join(''));
+      const jungle = placeOf('jungle');
+      if (jungle) {
+        const r = rng(29); let dots = '';
+        for (let i = 0; i < 80; i++) {
+          const a = r() * Math.PI * 2, k = Math.sqrt(r());
+          const x = jungle.x + Math.cos(a) * 185 * k, y = jungle.y + 2 + Math.sin(a) * 30 * k;
+          if (Math.hypot(x - jungle.x, y - jungle.y) < 20) continue;
+          dots += `<circle class="m-tree" cx="${f1(x)}" cy="${f1(y)}" r="${f1(2 + r() * 1.6)}"/>`;
+        }
+        out.push(dots);
+      }
+      const giants = placeOf('giants-steps');
+      if (giants) out.push([-34, -27, -20, 20, 27, 34].map((dx, i) => `<rect class="m-col" x="${giants.x + dx - 2}" y="${giants.y - 2 - (i % 3) * 3}" width="4.5" height="${9 + (i % 3) * 3}"/>`).join(''));
+      return out.join('');
+    }
+
+    function seaMarks() {
+      const coastP = placeOf('forgotten-coast');
+      let s = '';
+      if (coastP) s += [[-98, -44], [-110, -4], [-96, 38]].map(o => `<path class="m-wave" d="M${coastP.x + o[0]} ${coastP.y + o[1]}q7 -6 14 0t14 0t14 0"/>`).join('');
+      s += `<g transform="translate(908 606)"><circle class="m-rose" r="27"/><path class="m-rose" d="M0 -34L6 -6L34 0L6 6L0 34L-6 6L-34 0L-6 -6Z"/><path class="m-rose-fill" d="M0 -34L6 -6L0 0ZM0 34L-6 6L0 0Z"/><text class="m-rose-n" y="-41">N</text></g>`;
+      return s;
+    }
+
+    /* opts.id   한 화면에 지도가 여러 개일 때 겹치지 않게 붙이는 이름
+       opts.pins 번호 핀을 그릴지 여부 */
+    function svg(opts) {
+      const id = opts.id;
+      let s = `<defs><clipPath id="${id}-land"><path d="${coast()}"/></clipPath>` +
+        `<filter id="${id}-wash" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="10"/></filter></defs>`;
+      if (M.image) {
+        s += `<image class="m-img" href="${esc(M.image)}" x="0" y="0" width="1000" height="700" preserveAspectRatio="xMidYMid slice"/>`;
+      } else {
+        let grid = '';
+        for (let x = 100; x < 1000; x += 100) grid += `M${x} 0V700`;
+        for (let y = 100; y < 700; y += 100) grid += `M0 ${y}H1000`;
+        s += `<rect class="m-sea" width="1000" height="700"/><path class="m-grid" d="${grid}"/>`;
+        s += [30, 18, 8].map(w => `<path class="m-shelf" d="${coast()}" stroke-width="${w}"/>`).join('');
+        s += seaMarks();
+        s += `<path class="m-land" d="${coast()}"/>`;
+        s += `<g clip-path="url(#${id}-land)">` +
+          `<g filter="url(#${id}-wash)">${ORDER.map(n => `<polygon class="m-region" data-n="${n}" points="${M.regions[n].map(p => p.join(',')).join(' ')}"/>`).join('')}</g>` +
+          (M.limits || []).map(l => `<path class="m-limit" d="${curve(l)}"/>`).join('') +
+          (M.borders || []).map(l => `<path class="m-border" d="${curve(l)}"/>`).join('') +
+          terrain() + '</g>';
+        s += ORDER.map(n => {
+          const [x, y] = M.labels[n];
+          return `<text class="m-nation" data-n="${n}" x="${x}" y="${y}">${esc(N[n].short)}</text><text class="m-nation-en" data-n="${n}" x="${x}" y="${y + 21}">${esc(N[n].en)}</text>`;
+        }).join('');
+      }
+      if (opts.pins) {
+        s += D.places.map((p, i) =>
+          `<g class="pin" data-pin="${p.id}" tabindex="0" role="button" aria-label="${i + 1}. ${esc(p.name)}" transform="translate(${p.x} ${p.y})">` +
+          `<g class="pin__body"><circle class="pin__hit" r="27"/><circle class="pin__ring" r="13"/><circle class="pin__dot" r="13"/>` +
+          `<text class="pin__num">${i + 1}</text></g>` +
+          `<text class="pin__label" data-side="${p.la === 'start' ? 'right' : p.la === 'end' ? 'left' : p.ly > p.y ? 'below' : 'above'}" x="${p.lx - p.x}" y="${p.ly - p.y}" text-anchor="${p.la}">${esc(p.name)}</text></g>`).join('');
+      }
+      return s;
+    }
+    return { svg };
+  })();
+
+  /* ═══════════ 챕터 ═══════════ */
+  const CHAPTERS = [
+    { id: 'home', num: '', ko: '표지' },
+    { id: 'world', num: 'I', ko: '세계' },
+    { id: 'map', num: 'II', ko: '지리' },
+    { id: 'timeline', num: 'III', ko: '연표' },
+    { id: 'nations', num: 'IV', ko: '삼국' },
+    { id: 'ranks', num: 'V', ko: '위계' },
+    { id: 'currency', num: 'VI', ko: '화폐' },
+    { id: 'factions', num: 'VII', ko: '세력' }
+  ];
+  const first = D.timeline[0];
+  const BLURB = {
+    world: ['장르 · 환경 · 기술 · 사회 · 문화 · 기후', `${D.world.length}항목`],
+    map: ['협곡과 봉우리, 호수와 해안. 대륙의 지명', `${D.places.length}곳`],
+    timeline: [`EC ${first.year} ${first.title}부터 EC ${D.now.year} 현재까지`, `${D.timeline.length}개 기록`],
+    nations: [`${ORDER.map(n => N[n].short).join(' · ')}, 그리고 외교`, `${ORDER.length}국`],
+    ranks: ['전사와 마법사의 단계', `${D.ranks.warrior.tiers.length + D.ranks.mage.tiers.length}계급`],
+    currency: [`${D.currency.map(c => c.ko).join(' · ')}와 환산`, `${D.currency.length}종`],
+    factions: ['길드와 상회, 용병대와 부족, 그 밖의 집단', `${D.factions.length}개 세력`]
+  };
+
+  /* ── 표지 ── */
+  const Home = {
+    init() {
+      $('#heroLead').textContent = D.meta.lead;
+      $('#miniMap').innerHTML = MapArt.svg({ id: 'mini', pins: false });
+      $('#nowPanel').innerHTML = `
+        <div class="now__head">
+          <p class="eyebrow">Current</p>
+          <h2 class="now__year" id="nowTitle"><small>EC</small>${D.now.year}</h2>
+          <p class="now__sub">${esc(D.now.title)}</p>
+        </div>
+        <div>
+          <ul class="now__items">${D.now.items.map(it => `<li data-n="${it.n}"><a href="#nations.${it.n}">${icon('em-' + it.n)}${esc(N[it.n].short)}</a><span>${esc(it.text)}</span></li>`).join('')}</ul>
+          <p class="now__result">${esc(D.now.result)}</p>
+        </div>`;
+      $('#plates').innerHTML = CHAPTERS.filter(c => c.num).map(c =>
+        `<li><a href="#${c.id}"><i>${c.num}</i><b>${c.ko}</b><span>${esc(BLURB[c.id][0])}</span><em>${esc(BLURB[c.id][1])}</em></a></li>`).join('');
+    }
+  };
+
+  /* ── I. 세계 ── */
+  const World = {
+    init() {
+      $('#worldFacts').innerHTML = D.world.map(w => `
+        <div><dt>${esc(w.key)}<small>${esc(w.en)}</small></dt>
+        <dd>${w.chips ? `<div class="chips">${w.chips.map(c => `<span class="chip">${esc(c)}</span>`).join('')}</div>` : esc(w.text)}</dd></div>`).join('');
+      $('#trio').innerHTML = ORDER.map(n => `
+        <a href="#nations.${n}" data-n="${n}">
+          ${icon('em-' + n)}<small>${esc(N[n].en)}</small><b>${esc(N[n].name)}</b>
+          <p>${esc(N[n].summary)}</p>
+          <span class="go">기록 보기${icon('i-arrow')}</span>
+        </a>`).join('');
+    }
+  };
+
+  /* ── II. 지리 ── */
+  const Atlas = {
+    init() {
+      this.svg = $('#bigMap'); this.card = $('#placeCard'); this.list = $('#placeList');
+      this.svg.innerHTML = MapArt.svg({ id: 'big', pins: true });
+      $('#mapCaption').innerHTML =
+        ORDER.map(n => `<span class="legend" data-n="${n}"><i></i>${esc(N[n].name)}</span>`).join('') +
+        '<span>개략도.</span>';
+      this.list.innerHTML = D.places.map((p, i) =>
+        `<li><a href="#map.${p.id}" data-replace data-place="${p.id}"><i>${i + 1}</i><b>${esc(p.name)}</b><span>${esc(p.where)}</span></a></li>`).join('');
+      const pick = e => { const g = e.target.closest('[data-pin]'); if (g) { this.fromMap = true; navigate('map.' + g.dataset.pin, true); } };
+      this.svg.addEventListener('click', pick);
+      this.svg.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(e); } });
+      this.card.addEventListener('click', e => {
+        const b = e.target.closest('[data-place-step]');
+        if (!b) return;
+        const i = D.places.findIndex(p => p.id === this.cur);
+        const next = D.places[(i + Number(b.dataset.placeStep) + D.places.length) % D.places.length];
+        navigate('map.' + next.id, true);
+      });
+    },
+    enter(arg, changed) {
+      const id = D.places.some(p => p.id === arg) ? arg : (this.cur || D.places[0].id);
+      const same = id === this.cur;
+      this.cur = id;
+      const i = D.places.findIndex(p => p.id === id), p = D.places[i];
+      $$('[data-pin]', this.svg).forEach(g => g.classList.toggle('is-on', g.dataset.pin === id));
+      $$('[data-place]', this.list).forEach(a => a.classList.toggle('is-on', a.dataset.place === id));
+      this.card.innerHTML = `
+        <p class="eyebrow">No. ${i + 1} · ${esc(p.kind)}</p>
+        <h2>${esc(p.name)}</h2>
+        <p class="where">${esc(p.where)}</p>
+        <p class="desc">${esc(p.desc)}</p>
+        ${nationChips(p.n)}
+        <div class="stepper">
+          <button type="button" class="is-prev" data-place-step="-1" aria-label="이전 지명">${icon('i-arrow')}이전</button>
+          <span>${i + 1} / ${D.places.length}</span>
+          <button type="button" data-place-step="1" aria-label="다음 지명">다음${icon('i-arrow')}</button>
+        </div>`;
+      if (!same) replay(this.card, 'is-swap');
+      if (!changed && !same && innerWidth <= 1100) this.card.scrollIntoView({ behavior: smooth(), block: 'nearest' });
+      if (arg) document.title = `${p.name} — ${D.meta.name}`;
+    }
+  };
+
+  /* ── III. 연표 ── */
+  const Chron = {
+    init() {
+      const T = D.timeline, end = D.now.year, start = T[0].year, span = Math.max(1, end - start);
+      $('#timeSub').textContent = `EC ${start}부터 현재(EC ${end})까지, ${T.length}개의 기록.`;
+      this.axis = $('#axis'); this.list = $('#chron');
+      this.axis.innerHTML = `<div class="axis__track"><span class="axis__line"></span>${T.map((e, i) => {
+        const p = ((e.year - start) / span) * 100;
+        const side = p < 15 ? ' is-left' : p > 85 ? ' is-right' : '';
+        return `<button type="button" class="axis__tick ${i % 2 ? 'is-down' : 'is-up'}${side}${e.now ? ' is-now' : ''}" style="--p:${p.toFixed(2)}%" data-year="${e.year}" aria-label="EC ${e.year} ${esc(e.title)}"><span>EC ${e.year}</span></button>`;
+      }).join('')}</div>`;
+      this.list.innerHTML = T.map((e, i) => {
+        const gap = i ? `<li class="gap" aria-hidden="true">${e.year - T[i - 1].year}년 뒤</li>` : '';
+        return gap + `<li class="ev${e.now ? ' is-now' : ''}" data-key="ev-${e.year}">
+          <div class="ev__year"><small>EC</small><b>${e.year}</b></div>
+          <div class="ev__body"><h3>${esc(e.title)}${e.now ? '<span class="chip chip--now">지금</span>' : ''}</h3><p>${esc(e.desc)}</p>${nationChips(e.n)}</div>
+        </li>`;
+      }).join('');
+      this.axis.addEventListener('click', e => { const b = e.target.closest('[data-year]'); if (b) navigate('timeline.' + b.dataset.year, true); });
+    },
+    enter(arg) {
+      const year = D.timeline.some(e => String(e.year) === arg) ? arg : '';
+      $$('[data-year]', this.axis).forEach(b => b.classList.toggle('is-on', b.dataset.year === year));
+      if (year) setTimeout(() => reveal(byKey(this.list, 'ev-' + year)), 60);
+    }
+  };
+
+  /* ── IV. 삼국 ── */
+  const Nations = {
+    init() {
+      this.tabs = $('#nationTabs'); this.view = $('#nationView');
+      this.tabs.innerHTML = ORDER.map(n =>
+        `<a class="ntab" role="tab" href="#nations.${n}" data-ntab="${n}" data-n="${n}" aria-selected="false">${icon('em-' + n)}<span><b>${esc(N[n].name)}</b><small>${esc(N[n].en)}</small></span></a>`).join('');
+      this.tabs.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        const i = ORDER.indexOf(this.cur), next = ORDER[(i + (e.key === 'ArrowRight' ? 1 : -1) + ORDER.length) % ORDER.length];
+        navigate('nations.' + next);
+        $(`[data-ntab="${next}"]`, this.tabs).focus();
+      });
+
+      /* 비교표 */
+      const keys = N[ORDER[0]].facts.map(f => f[0]);
+      $('#compareTable').innerHTML =
+        `<thead><tr><td></td>${ORDER.map(n => `<th scope="col" data-n="${n}"><a href="#nations.${n}">${icon('em-' + n)}${esc(N[n].name)}</a></th>`).join('')}</tr></thead>` +
+        `<tbody>${keys.map((k, i) => `<tr><th scope="row">${esc(k)}</th>${ORDER.map(n => `<td>${esc(N[n].facts[i][1])}</td>`).join('')}</tr>`).join('')}` +
+        `<tr><th scope="row">도시</th>${ORDER.map(n => `<td>${N[n].cities.map(c => `${esc(c[0])}(${esc(c[1])})`).join(', ')}</td>`).join('')}</tr></tbody>`;
+
+      /* 외교 삼각도 */
+      const POS = { at: [70, 96], dm: [350, 96], rb: [210, 266] };
+      const R = 34;
+      const edges = D.diplomacy.map((d, i) => {
+        const [x1, y1] = POS[d.a], [x2, y2] = POS[d.b];
+        const len = Math.hypot(x2 - x1, y2 - y1), ux = (x2 - x1) / len, uy = (y2 - y1) / len;
+        const ax = x1 + ux * R, ay = y1 + uy * R, bx = x2 - ux * R, by = y2 - uy * R;
+        const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, w = d.label.length * 12 + 20;
+        return `<g class="d-g" data-edge="${i}" tabindex="0" role="button" aria-label="${esc(N[d.a].short)}와 ${esc(N[d.b].short)}: ${esc(d.label)}">
+          <path class="d-edge" d="M${f1(ax)} ${f1(ay)}L${f1(bx)} ${f1(by)}"/><path class="d-hit" d="M${f1(ax)} ${f1(ay)}L${f1(bx)} ${f1(by)}"/>
+          <g class="d-lab"><rect x="${f1(mx - w / 2)}" y="${f1(my - 13)}" width="${w}" height="26"/><text x="${f1(mx)}" y="${f1(my)}">${esc(d.label)}</text></g></g>`;
+      }).join('');
+      const nodes = ORDER.map(n => {
+        const [x, y] = POS[n], ty = n === 'rb' ? y + R + 24 : y - R - 12;
+        return `<g class="d-node" data-n="${n}"><circle cx="${x}" cy="${y}" r="${R}"/><use class="ic-use" href="#em-${n}" x="${x - 18}" y="${y - 18}" width="36" height="36"/><text x="${x}" y="${ty}">${esc(N[n].short)}</text></g>`;
+      }).join('');
+      const svg = $('#diploSvg'), list = $('#diploList');
+      svg.innerHTML = edges + nodes;
+      list.innerHTML = D.diplomacy.map((d, i) => `
+        <li data-edge="${i}"><div class="diplo__pair">${nationChip(d.a)}<span class="x" aria-hidden="true">↔</span>${nationChip(d.b)}<em>${esc(d.label)}</em></div><p>${esc(d.desc)}</p></li>`).join('');
+      const mark = i => {
+        $$('[data-edge]', svg).forEach(g => g.classList.toggle('is-on', g.dataset.edge === String(i)));
+        $$('[data-edge]', list).forEach(li => li.classList.toggle('is-on', li.dataset.edge === String(i)));
+      };
+      const edgeOf = e => { const g = e.target.closest && e.target.closest('[data-edge]'); return g ? g.dataset.edge : null; };
+      [svg, list].forEach(el => {
+        el.addEventListener('pointerover', e => { const i = edgeOf(e); if (i !== null) mark(i); });
+        el.addEventListener('focusin', e => { const i = edgeOf(e); if (i !== null) mark(i); });
+        el.addEventListener('click', e => { const i = edgeOf(e); if (i !== null) mark(i); });
+      });
+      mark(0);
+    },
+    enter(arg, changed) {
+      const section = arg === 'diplomacy' || arg === 'compare' ? arg : '';
+      const id = ORDER.includes(arg) ? arg : (this.cur || ORDER[0]);
+      if (id !== this.cur) { this.cur = id; this.render(id, !changed); }
+      $$('[data-ntab]', this.tabs).forEach(t => { const on = t.dataset.ntab === id; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
+      if (arg) document.title = `${section === 'diplomacy' ? '외교 관계' : section === 'compare' ? '삼국 비교' : N[id].name} — ${D.meta.name}`;
+      if (section) setTimeout(() => { const el = $(`[data-anchor="${section}"]`); if (el) el.scrollIntoView({ behavior: smooth(), block: 'start' }); }, 60);
+    },
+    render(id, animate) {
+      const n = N[id];
+      const ledger = (rows, kind) => `<ul class="ledger">${rows.map(r => `<li data-key="${kind}:${esc(r[0])}"><span class="nm">${esc(r[0])}</span>${r[1] ? `<span class="dots"></span><span class="role">${esc(r[1])}</span>` : ''}</li>`).join('')}</ul>`;
+      const events = D.timeline.filter(e => e.n.includes(id));
+      const places = D.places.filter(p => p.n.includes(id));
+      const factions = D.factions.filter(f => f.n.includes(id));
+      const xlist = (rows, empty) => (rows.length ? `<ul>${rows.join('')}</ul>` : `<p class="none">${empty}</p>`);
+      const capital = n.cities.find(c => c[1] === '수도');
+      this.view.dataset.n = id;
+      this.view.innerHTML = `
+        <header class="nation__head">
+          ${icon('em-' + id, 'nation__em')}
+          <div>
+            <p class="eyebrow">${esc(n.en)} · ${esc(n.where)}</p>
+            <h2>${esc(n.name)}</h2>
+            <p class="nation__sum">${esc(n.summary)}</p>
+            <dl class="nation__keys">
+              ${n.ruler ? `<div data-key="ruler"><dt>${esc(n.ruler[0])}</dt><dd>${esc(n.ruler[1])}</dd></div>` : ''}
+              ${capital ? `<div><dt>수도</dt><dd>${esc(capital[0])}</dd></div>` : ''}
+            </dl>
+          </div>
+        </header>
+        <dl class="nfacts">${n.facts.map(f => `<div><dt>${esc(f[0])}</dt><dd>${esc(f[1])}</dd></div>`).join('')}</dl>
+        <div class="ncols">
+          <section><h3>주요 도시<small>Cities</small></h3>${ledger(n.cities, 'city')}</section>
+          <section><h3>기관<small>Institutions</small></h3>${ledger(n.institutions, 'inst')}</section>
+          <section><h3>지역<small>Areas</small></h3>${ledger(n.areas, 'area')}</section>
+        </div>
+        ${n.families ? `<section class="families"><h3 class="nsub">${n.families.length}대 가문<small>Great Houses</small></h3><ul>${n.families.map(f => `<li data-key="family:${esc(f[0])}"><b>${esc(f[0])}</b><span>${esc(f[1])}</span><em>${esc(f[2])}</em></li>`).join('')}</ul></section>` : ''}
+        <div class="xref">
+          <section><h3 class="nsub">연표<small>Chronicle</small></h3>${xlist(events.map(e => `<li><a href="#timeline.${e.year}"><i>EC ${e.year}</i>${esc(e.title)}</a></li>`), '기록 없음')}</section>
+          <section><h3 class="nsub">지리<small>Atlas</small></h3>${xlist(places.map(p => `<li><a href="#map.${p.id}"><i>${esc(p.kind)}</i>${esc(p.name)}</a></li>`), '기록 없음')}</section>
+          <section><h3 class="nsub">관련 세력<small>Factions</small></h3>${xlist(factions.map(f => `<li><a href="#factions.${f.id}"><i>${esc(f.mark)}</i>${esc(f.name)}</a></li>`), '기록 없음')}</section>
+        </div>`;
+      if (animate) replay(this.view, 'is-swap');
+    }
+  };
+
+  /* ── V. 위계 ── */
+  const Ranks = {
+    init() {
+      this.tabs = $('#rankTabs'); this.ladder = $('#ladder');
+      this.tabs.innerHTML = Object.keys(D.ranks).map(k =>
+        `<a role="tab" href="#ranks.${k}" data-rtab="${k}" aria-selected="false">${esc(D.ranks[k].name)}<small>${esc(D.ranks[k].en)}</small></a>`).join('');
+    },
+    enter(arg, changed) {
+      const k = D.ranks[arg] ? arg : (this.cur || Object.keys(D.ranks)[0]);
+      $$('[data-rtab]', this.tabs).forEach(t => t.setAttribute('aria-selected', String(t.dataset.rtab === k)));
+      if (arg) document.title = `${D.ranks[k].name} 위계 — ${D.meta.name}`;
+      if (k === this.cur) return;
+      this.cur = k;
+      const T = D.ranks[k].tiers, total = T.length;
+      const max = Math.max(0, ...T.map(t => (t.circle ? t.circle[1] : 0)));
+      this.ladder.innerHTML = T.map((t, i) => {
+        let circles = '';
+        if (max) {
+          const c = t.circle;
+          const pips = Array.from({ length: max }, (_, j) => `<i class="${c && j + 1 <= c[0] ? 'is-full' : c && j + 1 <= c[1] ? 'is-range' : ''}"></i>`).join('');
+          const label = !c ? '입문' : t.plus ? `${c[0]}서클 이상` : c[0] === c[1] ? `${c[0]}서클` : `${c[0]}~${c[1]}서클`;
+          circles = `<div class="circles"><span class="circles__pips" aria-hidden="true">${pips}</span><span>${label}</span>${t.grade ? `<small>${esc(t.grade)}</small>` : ''}</div>`;
+        }
+        return `<li class="rung" data-key="${esc(t.en)}" style="--lv:${total - i};--k:${i}">
+          <div class="rung__bar" aria-hidden="true"><i></i></div>
+          <div class="rung__name"><b>${esc(t.ko)}</b><span>${esc(t.en)}</span></div>
+          <div class="rung__body"><p>${esc(t.desc)}</p>${circles}${t.chips && t.chips.length ? `<div class="chips">${t.chips.map(c => `<span class="chip">${esc(c)}</span>`).join('')}</div>` : ''}</div>
+        </li>`;
+      }).join('');
+      if (!changed) replay(this.ladder, 'is-swap');
+    }
+  };
+
+  /* ── VI. 화폐 ── */
+  const coinSvg = c => `<svg class="coin coin--${c.id}" viewBox="0 0 40 40" aria-hidden="true"><circle class="c-fill" cx="20" cy="20" r="18.5"/><circle class="c-rim" cx="20" cy="20" r="14.5"/><text x="20" y="20.5">${esc(c.en.charAt(0))}</text></svg>`;
+  const num = n => Number(n.toFixed(3)).toLocaleString('ko-KR', { maximumFractionDigits: 3 });
+  /* 금액을 큰 화폐부터 나누기 */
+  function exchange(amount, unitCopper, units) {
+    const raw = amount * unitCopper, total = Math.round(raw);
+    let rest = total;
+    const parts = units.map(u => { const q = Math.floor(rest / u.copper); rest -= q * u.copper; return { unit: u, count: q }; });
+    return { total, exact: Math.abs(raw - total) < 1e-9, parts, equals: units.map(u => ({ unit: u, value: total / u.copper })) };
+  }
+  const Coinage = {
+    init() {
+      const C = D.currency.slice().sort((a, b) => b.copper - a.copper);
+      this.units = C;
+      const base = C[C.length - 1];
+      $('#rate').innerHTML = C.map((c, i) => `${i ? '<span class="eq" aria-hidden="true">=</span>' : ''}<span>${coinSvg(c)}${num(C[0].copper / c.copper)} ${esc(c.ko)}</span>`).join('');
+      $('#coins').innerHTML = C.map(c => `
+        <li data-key="${c.id}">
+          ${coinSvg(c)}
+          <div><b>${esc(c.ko)}</b><span>${esc(c.en)}</span></div>
+          <p class="worth">${c.copper === base.copper ? '가장 작은 단위' : `1 ${esc(c.ko)} = ${num(c.copper / base.copper)} ${esc(base.ko)}`}</p>
+          <div class="use"><span>${esc(c.use)}</span><div class="chips">${c.examples.map(x => `<span class="chip">${esc(x)}</span>`).join('')}</div></div>
+        </li>`).join('');
+      const sel = $('#exUnit'), inp = $('#exAmount'), out = $('#exOut');
+      sel.innerHTML = C.map(c => `<option value="${c.id}"${c.id === base.id ? ' selected' : ''}>${esc(c.ko)}</option>`).join('');
+      const run = () => {
+        const v = inp.value.trim() === '' ? NaN : Number(inp.value);
+        if (!Number.isFinite(v) || v < 0) { out.innerHTML = '<p class="exchange__note">0 이상의 숫자를 넣어 주세요.</p>'; return; }
+        if (v > 1e9) { out.innerHTML = '<p class="exchange__note">10억 이하의 금액만 환산합니다.</p>'; return; }
+        const unit = C.find(c => c.id === sel.value) || base;
+        const r = exchange(v, unit.copper, C);
+        const shown = r.parts.filter(p => p.count > 0);
+        out.innerHTML = `
+          <p class="exchange__sum">${(shown.length ? shown : [r.parts[r.parts.length - 1]]).map(p => `<span>${coinSvg(p.unit)}${num(p.count)} ${esc(p.unit.ko)}</span>`).join('')}</p>
+          <p class="exchange__eq">${r.equals.map(e => `${num(e.value)} ${esc(e.unit.ko)}`).join(' = ')}</p>
+          ${r.exact ? '' : `<p class="exchange__note">${esc(base.ko)}보다 작은 금액은 반올림했습니다.</p>`}`;
+      };
+      $('#exForm').addEventListener('submit', e => e.preventDefault());
+      inp.addEventListener('input', run);
+      sel.addEventListener('change', run);
+      run();
+    }
+  };
+
+  /* ── VII. 세력 ── */
+  const Factions = {
+    init() {
+      this.list = $('#factionList');
+      this.list.innerHTML = D.factions.map(f => `
+        <li class="faction" data-key="${f.id}">
+          <h3>${esc(f.name)}<span class="chip chip--mark">${esc(f.mark)}</span></h3>
+          <p>${esc(f.desc)}</p>
+          ${nationChips(f.n)}
+        </li>`).join('');
+    },
+    enter(arg) {
+      const f = D.factions.find(x => x.id === arg);
+      if (f) { document.title = `${f.name} — ${D.meta.name}`; setTimeout(() => reveal(byKey(this.list, arg)), 60); }
+    }
+  };
+
+  /* ═══════════ 주소 → 화면 ═══════════ */
+  const PAGES = { home: Home, world: World, map: Atlas, timeline: Chron, nations: Nations, ranks: Ranks, currency: Coinage, factions: Factions };
+  const pageEls = new Map($$('.page').map(el => [el.dataset.page, el]));
+  const main = $('#main');
+
+  const Nav = (() => {
+    const nav = $('#nav'), btn = $('#menuBtn'), links = $('#navLinks');
+    const set = open => { nav.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); btn.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기'); };
+    btn.addEventListener('click', () => set(!nav.classList.contains('is-open')));
+    addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
+    return {
+      close: () => set(false),
+      mark(page) {
+        $$('a[data-nav]', links).forEach(a => {
+          const on = a.dataset.nav === page;
+          a.classList.toggle('is-active', on);
+          if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+        });
+      }
+    };
+  })();
+
+  const Pager = page => {
+    const i = CHAPTERS.findIndex(c => c.id === page), prev = CHAPTERS[i - 1], next = CHAPTERS[i + 1];
+    const lab = c => (c.num ? `Chapter ${c.num}` : 'Cover');
+    $('#pager').innerHTML =
+      (prev ? `<a class="is-prev" href="#${prev.id}"><small>이전 · ${lab(prev)}</small><b>${prev.ko}</b></a>` : '') +
+      (next ? `<a class="is-next" href="#${next.id}"><small>다음 · ${lab(next)}</small><b>${next.ko}</b></a>` : '');
+  };
+
+  const Router = {
+    page: null,
+    parse(hash) {
+      let h = String(hash || '').replace(/^#\/?/, '');
+      try { h = decodeURIComponent(h); } catch (e) { /* 그대로 사용 */ }
+      const parts = h.split(/[./]/).filter(Boolean);
+      return { page: PAGES[parts[0]] ? parts[0] : 'home', arg: parts.slice(1).join('.') };
+    },
+    render(hash, user) {
+      const { page, arg } = this.parse(hash);
+      const changed = page !== this.page;
+      const h = PAGES[page];
+      if (changed) {
+        pageEls.forEach((el, id) => { el.hidden = id !== page; el.classList.toggle('is-active', id === page); });
+        if (!h.ready) { h.init && h.init(); h.ready = true; }
+        this.page = page;
+        window.scrollTo(0, 0);
+        const ch = CHAPTERS.find(c => c.id === page);
+        document.title = page === 'home' ? D.meta.name : `${ch.ko} — ${D.meta.name}`;
+        Nav.mark(page);
+        Pager(page);
+        if (user) main.focus({ preventScroll: true });
+      }
+      Nav.close();
+      if (h.enter) h.enter(arg, changed);
+    }
+  };
+
+  /* 화면을 바꾸고 주소도 맞춤. replace 는 뒤로 가기 기록을 쌓지 않을 때. */
+  function navigate(route, replace) {
+    const target = '#' + route;
+    try {
+      if (location.hash !== target) history[replace ? 'replaceState' : 'pushState'](null, '', target);
+    } catch (e) { /* 주소를 바꿀 수 없는 환경이면 화면만 전환 */ }
+    Router.render(target, true);
+  }
+  addEventListener('popstate', () => Router.render(location.hash, true));
+  addEventListener('hashchange', () => Router.render(location.hash, true));
+
+  document.addEventListener('click', e => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    e.preventDefault();
+    navigate(a.getAttribute('href').slice(1), a.hasAttribute('data-replace'));
+  });
+
+  $('#toTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: smooth() }));
+  $('#footNote').textContent = `${D.meta.name} · EC ${D.now.year}`;
+
+  /* ═══════════ 검색 (Ctrl+K · /) ═══════════ */
+  const Palette = (() => {
+    const dlg = $('#palette'), input = $('#paletteInput'), list = $('#paletteList');
+    const CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';
+    const chosung = s => Array.from(s).map(ch => { const c = ch.charCodeAt(0) - 0xac00; return c >= 0 && c <= 11171 ? CHO[Math.floor(c / 588)] : ch; }).join('');
+    const isCho = q => /^[ㄱ-ㅎ\s]+$/.test(q);
+
+    const items = [];
+    const add = (group, label, sub, route, key, kw) => items.push({ group, label, sub, route, key, kw: kw || '' });
+    CHAPTERS.filter(c => c.num).forEach(c => add('챕터', c.ko, `Chapter ${c.num}`, c.id, '', BLURB[c.id][0]));
+    ORDER.forEach(n => add('국가', N[n].name, N[n].where, 'nations.' + n, '', `${N[n].summary} ${N[n].ruler ? N[n].ruler.join(' ') : ''}`));
+    D.places.forEach(p => add('지리', p.name, p.where, 'map.' + p.id, '', `${p.kind} ${p.desc}`));
+    D.timeline.forEach(e => add('연표', e.title, `EC ${e.year}`, 'timeline.' + e.year, '', e.desc));
+    ORDER.forEach(n => {
+      const s = N[n].short;
+      N[n].cities.forEach(c => add('도시', c[0], `${s} · ${c[1]}`, 'nations.' + n, 'city:' + c[0]));
+      N[n].institutions.forEach(c => add('기관', c[0], `${s} · ${c[1]}`, 'nations.' + n, 'inst:' + c[0]));
+      N[n].areas.forEach(c => add('지역', c[0], c[1] ? `${s} · ${c[1]}` : s, 'nations.' + n, 'area:' + c[0]));
+      (N[n].families || []).forEach(c => add('가문', c[0], `${s} · ${c[1]}`, 'nations.' + n, 'family:' + c[0], c[2]));
+    });
+    D.diplomacy.forEach(d => add('외교', `${N[d.a].short} ↔ ${N[d.b].short}`, d.label, 'nations.diplomacy', '', d.desc));
+    Object.keys(D.ranks).forEach(k => D.ranks[k].tiers.forEach(t => add('위계', `${t.ko} ${t.en}`, D.ranks[k].name, 'ranks.' + k, t.en, t.desc)));
+    D.currency.forEach(c => add('화폐', `${c.ko} ${c.en}`, c.use, 'currency', c.id, c.examples.join(' ')));
+    D.factions.forEach(f => add('세력', f.name, f.mark, 'factions.' + f.id, '', f.desc));
+    items.forEach(it => { it.low = it.label.toLowerCase(); it.hay = `${it.label} ${it.sub} ${it.kw}`.toLowerCase(); it.cho = chosung(it.label).replace(/\s+/g, ''); });
+
+    let shown = [], active = 0;
+    function search(q) {
+      q = q.trim().toLowerCase();
+      if (!q) return items.filter(it => it.group === '챕터' || it.group === '국가');
+      const cho = isCho(q) ? q.replace(/\s+/g, '') : '';
+      const toks = q.split(/\s+/);
+      return items.map(it => {
+        let s = 0;
+        if (cho) { if (it.cho.includes(cho)) s = it.cho.startsWith(cho) ? 3 : 2; }
+        else if (toks.every(t => it.hay.includes(t))) s = it.low.startsWith(q) ? 4 : it.low.includes(q) ? 3 : 1;
+        return [s, it];
+      }).filter(x => x[0] > 0).sort((a, b) => b[0] - a[0]).slice(0, 40).map(x => x[1]);
+    }
+    const hl = (text, q) => {
+      q = q.trim();
+      const i = q && !isCho(q) ? text.toLowerCase().indexOf(q.toLowerCase()) : -1;
+      return i < 0 ? esc(text) : esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
+    };
+    function render() {
+      const q = input.value;
+      shown = search(q); active = 0;
+      if (!shown.length) { list.innerHTML = `<li class="pal-empty">“${esc(q.trim())}”에 맞는 기록이 없습니다.</li>`; input.removeAttribute('aria-activedescendant'); return; }
+      /* 같은 분류끼리 모아서 보여 주기 (점수 순서는 분류 안에서 유지) */
+      const groups = [];
+      shown.forEach(it => { let g = groups.find(x => x.name === it.group); if (!g) { g = { name: it.group, rows: [] }; groups.push(g); } g.rows.push(it); });
+      shown = groups.flatMap(g => g.rows);
+      let i = 0;
+      list.innerHTML = groups.map(g => `<li class="pal-group" role="presentation">${esc(g.name)}</li>` + g.rows.map(it => {
+        const k = i++;
+        return `<li class="pal-item" role="option" id="pal-${k}" data-i="${k}" aria-selected="${k === 0}"><b>${hl(it.label, q)}</b><small>${esc(it.sub)}</small></li>`;
+      }).join('')).join('');
+      input.setAttribute('aria-activedescendant', 'pal-0');
+    }
+    function move(d) {
+      if (!shown.length) return;
+      active = (active + d + shown.length) % shown.length;
+      $$('.pal-item', list).forEach(el => el.setAttribute('aria-selected', String(Number(el.dataset.i) === active)));
+      input.setAttribute('aria-activedescendant', 'pal-' + active);
+      const el = $('#pal-' + active, list);
+      if (el) el.scrollIntoView({ block: 'nearest' });
+    }
+    function choose(i) {
+      const it = shown[i];
+      if (!it) return;
+      close();
+      navigate(it.route);
+      if (it.key) setTimeout(() => reveal(byKey(pageEls.get(Router.page), it.key)), 80);
+    }
+    function open() {
+      if (dlg.open || body.classList.contains('is-gated')) return;
+      input.value = '';
+      render();
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+      input.focus();
+    }
+    function close() { if (dlg.open) dlg.close(); }
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); move(1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); move(-1); }
+      else if (e.key === 'Enter') { e.preventDefault(); choose(active); }
+    });
+    list.addEventListener('click', e => { const li = e.target.closest('[data-i]'); if (li) choose(Number(li.dataset.i)); });
+    list.addEventListener('pointermove', e => { const li = e.target.closest('[data-i]'); if (li && Number(li.dataset.i) !== active) move(Number(li.dataset.i) - active); });
+    dlg.addEventListener('click', e => { if (e.target === dlg) close(); });
+    $('#searchBtn').addEventListener('click', open);
+    addEventListener('keydown', e => {
+      const typing = e.target.matches && e.target.matches('input, textarea, select, [contenteditable]');
+      if ((e.key === 'k' || e.key === 'K') && (e.ctrlKey || e.metaKey)) { e.preventDefault(); dlg.open ? close() : open(); }
+      else if (e.key === '/' && !typing) { e.preventDefault(); open(); }
+    });
+    return { open, close };
+  })();
+
+  /* ═══════════ 표지 문 (인트로) ═══════════ */
+  (() => {
+    const g = $('#gate'), btn = $('#gateEnter');
+    const behind = [$('#nav'), main, $('.foot')];$('#gateLine').textContent = `EC ${D.now.year} · ${D.now.title}`;
+    if (root.classList.contains('skip-gate')) { g.hidden = true; return; }
+    let done = false;
+    body.classList.add('is-gated');
+    behind.forEach(el => { if (el) el.inert = true; });
+    setTimeout(() => btn.focus({ preventScroll: true }), 60);
+
+    function finish() { g.hidden = true; root.classList.add('skip-gate'); }
+    function enter() {
+      if (done) return;
+      done = true;
+      sess.set('eridian-entered', '1');
+      body.classList.remove('is-gated');
+      behind.forEach(el => { if (el) el.inert = false; });
+      main.focus({ preventScroll: true });
+      if (reduce()) { finish(); return; }
+      g.classList.add('is-opening');
+      const max = Math.hypot(innerWidth, innerHeight), t0 = performance.now(), dur = 950;
+      const step = now => {
+        const k = Math.min(1, (now - t0) / dur);
+        const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+        g.style.setProperty('--iris', (e * max).toFixed(1) + 'px');
+        if (k < 1) requestAnimationFrame(step); else finish();
+      };
+      requestAnimationFrame(step);
+      setTimeout(finish, dur + 400);   /* 탭이 가려져 애니메이션이 멈춰도 반드시 닫힘 */
+    }
+    btn.addEventListener('click', enter);
+    addEventListener('keydown', e => { if (!done && e.key === 'Escape') enter(); });
+  })();
+
+  /* 시작 */
+  Router.render(location.hash, false);
+})();
+</script>
+
+</body></html>
